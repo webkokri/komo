@@ -50,9 +50,11 @@ npm run create-admin -- info@komorebiinteriors.ca "Komorebi Admin" 'your-passwor
 | `NODE_ENV` | `production` (cookie becomes `SameSite=None; Secure`) |
 | `CORS_ORIGINS` | `https://komorebiinteriors.ca,https://www.komorebiinteriors.ca` |
 
-Tip: put the API on a subdomain of the site (e.g. `api.komorebiinteriors.ca`) so the login cookie is first-party and not blocked by Safari.
+**Same-domain `/api` (recommended):** `public/.htaccess` proxies `komorebiinteriors.ca/api/*` and `/uploads/*` to Vercel, so the browser only talks to your domain (login cookie is first-party, no CORS). Edit the two `YOUR-PROJECT.vercel.app` lines to your Vercel domain, and turn off *Vercel Authentication* for the project. Check it after upload: `curl https://komorebiinteriors.ca/api/session` should return `{"user":null}`. If you get a 500/403, Hostinger isn't allowing `mod_proxy` – ask their support, or use the fallback below.
 
-**3. Site (Hostinger)** – set `VITE_API_URL=https://<your-api-domain>` (see `.env.production.example`), run `npm run build`, and upload the contents of `dist/` to `public_html/`. `public/.htaccess` (copied into `dist/`) routes `/admin` to the admin app and everything else to the site.
+**Fallback:** a subdomain such as `api.komorebiinteriors.ca` pointing at Vercel (set `VITE_API_URL=https://api.komorebiinteriors.ca` before building).
+
+**3. Site (Hostinger)** – leave `VITE_API_URL` empty when using the same-domain `/api` proxy (see `.env.production.example`), run `npm run build`, and upload the contents of `dist/` to `public_html/`. `public/.htaccess` (copied into `dist/`) routes `/admin` to the admin app and everything else to the site.
 
 **One server instead:** `npm run build`, then `cd server && npm start` serves API, site and `/admin` together.
 

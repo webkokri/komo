@@ -2,6 +2,11 @@
 RewriteEngine On
 RewriteBase /
 
+# API + uploaded images live on Vercel; proxy them so the browser only ever talks to this domain.
+# Replace YOUR-PROJECT.vercel.app with the Vercel deployment's domain (needs mod_proxy; see README).
+RewriteRule ^api/(.*)$ https://YOUR-PROJECT.vercel.app/api/$1 [P,L,QSA]
+RewriteRule ^uploads/(.*)$ https://YOUR-PROJECT.vercel.app/uploads/$1 [P,L,QSA]
+
 # Serve real files and folders as they are
 RewriteCond %{REQUEST_FILENAME} -f [OR]
 RewriteCond %{REQUEST_FILENAME} -d
