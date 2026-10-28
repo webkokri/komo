@@ -7,6 +7,8 @@ const NAV = [
   { to: '/', label: 'Dashboard', icon: '▦', end: true },
   { to: '/pages', label: 'Pages', icon: '❏' },
   { to: '/menus', label: 'Menus', icon: '☰' },
+  { to: '/seo', label: 'SEO & GEO', icon: '◎' },
+  { to: '/code', label: 'Code & tracking', icon: '‹›', admin: true },
   { to: '/media', label: 'Media library', icon: '▣' },
   { to: '/leads', label: 'Leads', icon: '✉' },
   { to: '/users', label: 'Users', icon: '☺', admin: true },

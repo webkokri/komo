@@ -1,6 +1,8 @@
 import { useCallback, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { deletePage, listPages, saveDraft } from '../../cms/api.js';
+import { deletePage, fetchPages, listPages, saveDraft } from '../../cms/api.js';
+import { GLOBAL } from '../../cms/defaults.js';
+import { analyzePage, withSeoDefaults } from '../../cms/seo.js';
 import { Badge, Button, Card, EmptyState, Field, Input, LinkButton, PageHeader, Spinner, slugify } from '../ui.jsx';
 import { starterDoc, useGlobal } from '../data.js';
 
@@ -20,6 +22,17 @@ export default function PageList() {
   const [form, setForm] = useState({ title: '', slug: '', addToNav: true });
   const [busy, setBusy] = useState(false);
   const global = useGlobal();
+  const [scores, setScores] = useState({});
+
+  // SEO score per page, computed from what is currently saved.
+  useEffect(() => {
+    if (!pages || !global.doc) return;
+    const slugs = pages.map((p) => p.slug).slice(0, 19);
+    fetchPages(slugs).then((remote) => {
+      const g = withSeoDefaults(global.doc, GLOBAL);
+      setScores(Object.fromEntries(slugs.filter((s) => remote[s]).map((s) => [s, analyzePage({ global: g, doc: remote[s].draft ?? remote[s].published, slug: s }).score])));
+    }).catch(() => {});
+  }, [pages, global.doc]);
 
   const load = useCallback(() => listPages().then((r) => setPages(r.filter((p) => p.slug !== '_global'))).catch((e) => setError(e.message)), []);
   useEffect(() => { load(); }, [load]);
@@ -73,13 +86,14 @@ export default function PageList() {
       ) : (
         <div className="sc-tablewrap">
           <table className="sc-table">
-            <thead><tr><th>Title</th><th>Address</th><th>Status</th><th /></tr></thead>
+            <thead><tr><th>Title</th><th>Address</th><th>Status</th><th>SEO</th><th /></tr></thead>
             <tbody>
               {pages.map((p) => (
                 <tr key={p.slug}>
                   <td><Link className="sc-rowlink" to={`/pages/${p.slug}`}>{p.title}</Link></td>
                   <td><code>{urlFor(p.slug)}</code></td>
                   <td>{status(p)}</td>
+                  <td>{scores[p.slug] == null ? '—' : <Badge tone={scores[p.slug] >= 80 ? 'green' : scores[p.slug] >= 50 ? 'amber' : 'info'}>{scores[p.slug]}/100</Badge>}</td>
                   <td className="sc-right">
                     <LinkButton size="sm" variant="primary" href={`${urlFor(p.slug)}?edit=1`} target="_blank" rel="noreferrer">Edit visually</LinkButton>{' '}
                     <LinkButton size="sm" to={`/pages/${p.slug}`}>Settings</LinkButton>{' '}

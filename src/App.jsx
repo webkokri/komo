@@ -6,6 +6,7 @@ import SmoothScroll, { scrollToTop } from './components/SmoothScroll.jsx';
 import PageView, { ThemeStyle } from './cms/PageView.jsx';
 import Editor from './cms/editor/Editor.jsx';
 import { useCms } from './cms/store.jsx';
+import { CodeInjection, Redirects, SeoHead } from './cms/Seo.jsx';
 
 export default function App() {
   const location = useLocation();
@@ -17,6 +18,9 @@ export default function App() {
     <MotionConfig reducedMotion={editing ? 'always' : 'user'}>
       <ThemeStyle />
       <a href="#main" className="skip-link">Skip to content</a>
+      <SeoHead />
+      <Redirects />
+      <CodeInjection />
       <SmoothScroll />
       <ScrollProgress />
       <Header />

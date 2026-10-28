@@ -11,6 +11,8 @@ import MediaLibrary from './pages/MediaLibrary.jsx';
 import Leads from './pages/Leads.jsx';
 import Users from './pages/Users.jsx';
 import SiteSettings from './pages/SiteSettings.jsx';
+import SeoSettings from './pages/SeoSettings.jsx';
+import CodeSettings from './pages/CodeSettings.jsx';
 
 function Guard() {
   const { user, ready } = useAuth();
@@ -33,6 +35,8 @@ export default function AdminApp() {
           <Route path="leads" element={<Leads />} />
           <Route path="users" element={<Users />} />
           <Route path="settings" element={<SiteSettings />} />
+          <Route path="seo" element={<SeoSettings />} />
+          <Route path="code" element={<CodeSettings />} />
           <Route path="*" element={<Navigate to="/" replace />} />
         </Route>
       </Routes>

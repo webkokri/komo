@@ -1,12 +1,48 @@
 {
   "buildCommand": "npm run build",
   "outputDirectory": "dist",
-  "functions": { "api/index.js": { "maxDuration": 30, "includeFiles": "server/uploads/**" } },
+  "functions": {
+    "api/index.js": {
+      "maxDuration": 30,
+      "includeFiles": "server/uploads/**"
+    }
+  },
   "rewrites": [
-    { "source": "/api/(.*)", "destination": "/api" },
-    { "source": "/uploads/(.*)", "destination": "/api" },
-    { "source": "/admin", "destination": "/admin.html" },
-    { "source": "/admin/(.*)", "destination": "/admin.html" },
-    { "source": "/(.*)", "destination": "/index.html" }
+    {
+      "source": "/robots.txt",
+      "destination": "/api/seo/robots.txt"
+    },
+    {
+      "source": "/sitemap.xml",
+      "destination": "/api/seo/sitemap.xml"
+    },
+    {
+      "source": "/llms.txt",
+      "destination": "/api/seo/llms.txt"
+    },
+    {
+      "source": "/llms-full.txt",
+      "destination": "/api/seo/llms-full.txt"
+    },
+    {
+      "source": "/api/(.*)",
+      "destination": "/api"
+    },
+    {
+      "source": "/uploads/(.*)",
+      "destination": "/api"
+    },
+    {
+      "source": "/admin",
+      "destination": "/admin.html"
+    },
+    {
+      "source": "/admin/(.*)",
+      "destination": "/admin.html"
+    },
+    {
+      "source": "/(.*)",
+      "destination": "/index.html"
+    }
   ]
 }

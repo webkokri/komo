@@ -62,6 +62,57 @@ export const GLOBAL = {
   },
   // CSS variable overrides, e.g. { "--sun": "#D9A441" }. Empty = use the stylesheet values.
   theme: {},
+  // Search, answer-engine (AEO), local (GEO) and AI (AIO) settings. Edited in Studio CMS → SEO & GEO.
+  seo: {
+    siteUrl: 'https://komorebiinteriors.ca',
+    siteName: 'Komorebi Interiors',
+    titleTemplate: '%s — Komorebi Interiors',
+    defaultDescription: 'Premium décor, backdrops, florals and balloon styling for weddings, birthdays, corporate events and private celebrations.',
+    ogImage: '/uploads/hero-wedding-ceremony.jpg',
+    twitter: '',
+    locale: 'en_CA',
+    noindexSite: false,
+    verification: { google: '', bing: '', yandex: '', pinterest: '', facebook: '' },
+    business: {
+      type: 'ProfessionalService',
+      name: 'Komorebi Interiors',
+      legalName: 'Komorebi Interiors Inc.',
+      priceRange: '$$',
+      foundingYear: '',
+      street: '',
+      city: 'Toronto',
+      region: 'ON',
+      postal: '',
+      country: 'CA',
+      lat: '',
+      lng: '',
+      serviceAreas: ['Toronto', 'Greater Toronto Area'],
+      openingHours: 'Mo-Fr 10:00-18:00',
+      languages: 'English',
+      knowsAbout: 'event décor, wedding décor, corporate event styling, balloon styling, floral design, backdrops',
+      sameAs: '',
+      services: [
+        { name: 'Corporate event décor', description: 'Conferences, product launches and award nights styled to reflect your brand.' },
+        { name: 'Wedding décor', description: 'Ceremony and reception styling, florals, arches and tablescapes.' },
+        { name: 'Birthday and private party décor', description: 'Backdrops, balloons, cake tables and hall decoration for birthdays, showers and anniversaries.' },
+        { name: 'VIP dinners and galas', description: 'Table settings and venue styling for upscale evenings.' },
+      ],
+    },
+    ai: {
+      summary: 'Komorebi Interiors is an elite event décor studio. We design and install backdrops, florals, balloon styling and full venue décor for weddings, birthdays, corporate events and private celebrations.',
+      facts: [
+        'Komorebi (木漏れ日) is a Japanese word for sunlight filtering through leaves.',
+        'Services: corporate events, weddings, birthdays, baby showers, anniversaries, VIP dinners and gala events.',
+        'Every setup is customised to the occasion, venue and client; designs are never copied from a catalogue.',
+      ],
+      bots: Object.fromEntries(['GPTBot', 'OAI-SearchBot', 'ChatGPT-User', 'ClaudeBot', 'Claude-SearchBot', 'Claude-User', 'PerplexityBot', 'Perplexity-User', 'Google-Extended', 'Applebot-Extended', 'Meta-ExternalAgent', 'Amazonbot', 'CCBot', 'Bytespider'].map((n) => [n, 'allow'])),
+    },
+    robotsExtra: '',
+    redirects: [],
+    deployHook: '',
+  },
+  // Admin-only code injection (saved only when an admin publishes it).
+  code: { gaId: '', gtmId: '', pixelId: '', head: '', bodyStart: '', footer: '', css: '', js: '' },
 };
 
 const HOME = {

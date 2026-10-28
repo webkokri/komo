@@ -4,6 +4,8 @@ import multer from 'multer';
 import { importDiskUploads, migrate, pool } from './db.js';
 import { clearSession, rateLimit, readSession, requireEditor, setSession } from './session.js';
 import * as cms from './cms.js';
+import { GLOBAL } from '../../src/cms/defaults.js';
+import { buildLlms, buildLlmsFull, buildRobots, buildSitemap, withSeoDefaults } from '../../src/cms/seo.js';
 
 for (const key of ['SESSION_SECRET']) {
   if (!process.env[key]) throw new Error(`Missing ${key}. Add it to the Vercel project's environment variables (or server/.env locally).`);
@@ -59,6 +61,23 @@ const validDoc = (req, res, next) => {
   next();
 };
 
+// Injected code (head/footer/CSS/JS, JSON-LD) can run on every visitor's browser, so only admins may change it.
+// For editors, whatever code is already published is kept and anything they send is ignored.
+async function guardCode(slug, doc, user) {
+  if (user.role === 'admin') return doc;
+  const [existing] = await cms.getPages([slug]);
+  const prev = existing?.doc;
+  if (slug === '_global') {
+    const next = { ...doc };
+    if (prev?.code) next.code = prev.code; else delete next.code;
+    if (next.seo) next.seo = { ...next.seo, deployHook: prev?.seo?.deployHook ?? '' };
+    return next;
+  }
+  const meta = { ...doc.meta };
+  if (prev?.meta?.code) meta.code = prev.meta.code; else delete meta.code;
+  return { ...doc, meta };
+}
+
 // ---- Session ----------------------------------------------------------------------------
 api.get('/session', (req, res) => res.json({ user: readSession(req) }));
 
@@ -92,6 +111,13 @@ api.get('/pages', wrap(async (req, res) => {
     const draft = drafts.rows.find((d) => d.slug === slug);
     if (page || draft) out[slug] = { title: page?.title, published: page?.doc ?? null, draft: draft?.doc ?? null };
   }
+  // The deploy-hook URL is a secret: only admins see it.
+  if (out._global && editor?.role !== 'admin') {
+    for (const k of ['published', 'draft']) {
+      const d = out._global[k];
+      if (d?.seo?.deployHook) out._global[k] = { ...d, seo: { ...d.seo, deployHook: '' } };
+    }
+  }
   res.json({ pages: out });
 }));
 
@@ -106,10 +132,11 @@ api.get('/pages/all', requireEditor, wrap(async (req, res) => {
 }));
 
 api.put('/pages/:slug/draft', requireEditor, validSlug, validDoc, wrap(async (req, res) => {
+  const doc = await guardCode(req.params.slug, req.body.doc, req.user);
   await pool.query(
     `insert into komorebi_page_drafts (slug, doc) values ($1, $2)
      on conflict (slug) do update set doc = excluded.doc, updated_at = now()`,
-    [req.params.slug, req.body.doc]
+    [req.params.slug, doc]
   );
   res.json({ ok: true });
 }));
@@ -121,7 +148,7 @@ api.delete('/pages/:slug/draft', requireEditor, validSlug, wrap(async (req, res)
 
 api.post('/pages/:slug/publish', requireEditor, validSlug, validDoc, wrap(async (req, res) => {
   const { slug } = req.params;
-  const { doc } = req.body;
+  const doc = await guardCode(slug, req.body.doc, req.user);
   const title = String(doc.meta?.title || (slug === '_global' ? 'Site settings' : slug)).slice(0, 120);
   const description = String(doc.meta?.seoDescription || '').slice(0, 300);
   await cms.writePage(slug, { title, description, doc });
@@ -140,17 +167,63 @@ api.delete('/pages/:slug', requireEditor, validSlug, wrap(async (req, res) => {
 // Rename a page's URL, change its title or search description without opening the editor.
 api.patch('/pages/:slug', requireEditor, validSlug, wrap(async (req, res) => {
   const { slug } = req.params;
-  const { title, description, seoTitle, newSlug } = req.body || {};
+  const { title, description, seoTitle, newSlug, seo, code } = req.body || {};
   const [page] = await cms.getPages([slug]);
   if (!page) return res.status(404).json({ error: 'Publish this page first.' });
-  const doc = { ...page.doc, meta: { ...page.doc.meta, title: title ?? page.title, seoTitle: seoTitle ?? page.doc.meta?.seoTitle, seoDescription: description ?? page.description } };
+  const patchMeta = (meta = {}) => {
+    const next = { ...meta };
+    if (title !== undefined) next.title = title;
+    if (seoTitle !== undefined) next.seoTitle = seoTitle;
+    if (description !== undefined) next.seoDescription = description;
+    if (seo && typeof seo === 'object') next.seo = { ...meta.seo, ...seo };
+    if (code && typeof code === 'object' && req.user.role === 'admin') next.code = { ...meta.code, ...code };
+    return next;
+  };
+  const doc = { ...page.doc, meta: patchMeta(page.doc.meta) };
+  if (Buffer.byteLength(JSON.stringify(doc)) > MAX_DOC_BYTES) return res.status(413).json({ error: 'Page is too large.' });
   await cms.writePage(slug, { title: String(title ?? page.title).slice(0, 120), description: String(description ?? page.description).slice(0, 300), doc });
+  // keep any unpublished draft in step so publishing it later does not undo these settings
+  const { rows: draftRows } = await pool.query('select doc from komorebi_page_drafts where slug = $1', [slug]);
+  if (draftRows[0]) await pool.query('update komorebi_page_drafts set doc = $2, updated_at = now() where slug = $1', [slug, { ...draftRows[0].doc, meta: patchMeta(draftRows[0].doc.meta) }]);
   if (newSlug && newSlug !== slug) {
     if (['home', '404', '_global'].includes(slug)) return res.status(400).json({ error: 'This page keeps its address.' });
     if (!SLUG.test(newSlug) || newSlug === '_global') return res.status(400).json({ error: 'Use lowercase letters, numbers and dashes in the address.' });
     if ((await cms.getPages([newSlug])).length) return res.status(409).json({ error: 'Another page already uses that address.' });
     await cms.renamePage(slug, newSlug);
   }
+  res.json({ ok: true });
+}));
+
+// ---- SEO files for crawlers ---------------------------------------------------------------------
+async function siteData() {
+  const { rows } = await pool.query('select slug, doc, updated_at from komorebi_pages');
+  const global = withSeoDefaults(rows.find((r) => r.slug === '_global')?.doc, GLOBAL);
+  return { global, pages: rows.filter((r) => r.slug !== '_global') };
+}
+const ASSET_BASE = () => process.env.PUBLIC_API_URL || (process.env.VERCEL_PROJECT_PRODUCTION_URL ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}` : '');
+const sendText = (res, type, body) => {
+  res.set({ 'Content-Type': `${type}; charset=utf-8`, 'Cache-Control': 'public, s-maxage=300, stale-while-revalidate=3600' });
+  res.send(body);
+};
+api.get('/seo/robots.txt', wrap(async (req, res) => sendText(res, 'text/plain', buildRobots((await siteData()).global))));
+api.get('/seo/sitemap.xml', wrap(async (req, res) => { const d = await siteData(); sendText(res, 'application/xml', buildSitemap(d.global, d.pages, { assetBase: ASSET_BASE() })); }));
+api.get('/seo/llms.txt', wrap(async (req, res) => { const d = await siteData(); sendText(res, 'text/plain', buildLlms(d.global, d.pages)); }));
+api.get('/seo/llms-full.txt', wrap(async (req, res) => { const d = await siteData(); sendText(res, 'text/plain', buildLlmsFull(d.global, d.pages)); }));
+
+// Published pages and settings, used by the build step that writes static HTML for crawlers.
+api.get('/seo/site', wrap(async (req, res) => {
+  const { global, pages } = await siteData();
+  const { code, ...rest } = global;
+  res.json({ global: { ...rest, seo: { ...rest.seo, deployHook: '' } }, pages: pages.map((p) => ({ slug: p.slug, updated_at: p.updated_at, doc: { ...p.doc, meta: { ...p.doc.meta, code: undefined } } })) });
+}));
+
+// Asks Vercel to rebuild so the static pages pick up new SEO settings.
+api.post('/seo/rebuild', requireEditor, (req, res, next) => (req.user.role === 'admin' ? next() : res.status(403).json({ error: 'Only admins can do this.' })), wrap(async (req, res) => {
+  const { global } = await siteData();
+  const hook = global.seo?.deployHook || '';
+  if (!/^https:\/\/api\.vercel\.com\/v1\/integrations\/deploy\//.test(hook)) return res.status(400).json({ error: 'Add a valid Vercel deploy hook URL in SEO & GEO → Advanced first.' });
+  const r = await fetch(hook, { method: 'POST' });
+  if (!r.ok) return res.status(502).json({ error: `Vercel answered ${r.status}.` });
   res.json({ ok: true });
 }));
 

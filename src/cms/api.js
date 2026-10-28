@@ -57,3 +57,5 @@ export const createUser = (values) => request('/admin/users', { method: 'POST', 
 export const updateUser = (id, values) => request(`/admin/users/${id}`, { method: 'PATCH', body: values });
 export const deleteUser = (id) => request(`/admin/users/${id}`, { method: 'DELETE' });
 export const updateMedia = (id, alt) => request(`/media/${id}`, { method: 'PATCH', body: { alt } });
+export const apiUrl = (path) => BASE + path;
+export const rebuildSite = () => request('/seo/rebuild', { method: 'POST' });

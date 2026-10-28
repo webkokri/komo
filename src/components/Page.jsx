@@ -13,10 +13,6 @@ export default function Page({ title, children }) {
   const { hash } = useLocation();
 
   useEffect(() => {
-    document.title = title || 'KOMOREBI — Event Décor Studio';
-  }, [title]);
-
-  useEffect(() => {
     if (!hash) return undefined;
     const t = setTimeout(() => {
       document.getElementById(hash.slice(1))?.scrollIntoView({ behavior: 'smooth', block: 'start' });

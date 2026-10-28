@@ -5,13 +5,14 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "vite build",
+    "build": "vite build && node scripts/prerender.mjs",
     "preview": "vite preview",
     "dev:api": "npm --prefix server run dev",
     "dev:all": "concurrently -n site,api -c cyan,green \"npm run dev\" \"npm run dev:api\"",
     "seed": "npm --prefix server run seed",
     "start": "npm --prefix server run start",
-    "create-admin": "npm --prefix server run create-admin --"
+    "create-admin": "npm --prefix server run create-admin --",
+    "build:site": "vite build"
   },
   "dependencies": {
     "express": "^4.21.2",
