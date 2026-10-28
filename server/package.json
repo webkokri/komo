@@ -7,7 +7,8 @@
     "start": "node --env-file=.env src/index.js",
     "dev": "node --watch --env-file=.env src/index.js",
     "seed": "node --env-file=.env src/seed.js",
-    "create-admin": "node --env-file=.env src/create-admin.js"
+    "create-admin": "node --env-file=.env src/create-admin.js",
+    "sync-uploads": "node --env-file=.env src/sync-uploads.js"
   },
   "dependencies": {
     "express": "^4.21.2",

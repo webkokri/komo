@@ -28,9 +28,33 @@ Open <http://localhost:5173/admin>. Sign in, then use **Edit visually** on any p
 - **Menus** / **Site settings**: header and footer links, contact details, social links, colours. Saved straight to the live site.
 - **Leads**: contact-form enquiries. **Users**: admins and editors.
 
-## Deploy
+## Images
 
-`npm run build`, then `cd server && npm start` serves the API, `dist/` and `/admin` from one process. Set `NODE_ENV=production` and use HTTPS.
+Uploaded images are stored **in PostgreSQL** (`komorebi_media.data`) and served from `/uploads/<file>`, so they survive redeploys and work on serverless hosting. Uploads are limited to 4 MB (Vercel's request limit). `server/uploads/` holds the starter photos; `npm --prefix server run sync-uploads` copies them into whatever database `DATABASE_URL` points to.
+
+## Deploy: API on Vercel, site on Hostinger
+
+**1. Database** – create a hosted Postgres (Neon, Supabase, Vercel Postgres). With its `DATABASE_URL` in `server/.env`, run once from `server/`:
+
+```bash
+npm run seed && npm run sync-uploads
+npm run create-admin -- info@komorebiinteriors.ca "Komorebi Admin" 'your-password'
+```
+
+**2. API (Vercel)** – import the repo, set **Root Directory = `server`**, and add env vars:
+
+| Variable | Value |
+|----------|-------|
+| `DATABASE_URL` | the hosted Postgres URL |
+| `SESSION_SECRET` | a long random string |
+| `NODE_ENV` | `production` (cookie becomes `SameSite=None; Secure`) |
+| `CORS_ORIGINS` | `https://komorebiinteriors.ca,https://www.komorebiinteriors.ca` |
+
+Tip: put the API on a subdomain of the site (e.g. `api.komorebiinteriors.ca`) so the login cookie is first-party and not blocked by Safari.
+
+**3. Site (Hostinger)** – set `VITE_API_URL=https://<your-api-domain>` (see `.env.production.example`), run `npm run build`, and upload the contents of `dist/` to `public_html/`. `public/.htaccess` (copied into `dist/`) routes `/admin` to the admin app and everything else to the site.
+
+**One server instead:** `npm run build`, then `cd server && npm start` serves API, site and `/admin` together.
 
 Add a new section type: component in `src/cms/sections/`, register in `src/cms/registry.js`.
 # komo

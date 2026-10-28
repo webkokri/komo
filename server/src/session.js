@@ -2,16 +2,18 @@ import crypto from 'node:crypto';
 
 const COOKIE = 'kmb_session';
 const MAX_AGE = 60 * 60 * 24 * 14; // 14 days
+// The site and API are on different hosts in production, so the cookie must be allowed cross-site (and therefore Secure).
+const ATTRS = process.env.NODE_ENV === 'production' ? 'HttpOnly; Secure; SameSite=None' : 'HttpOnly; SameSite=Lax';
 
 const sign = (payload) => crypto.createHmac('sha256', process.env.SESSION_SECRET).update(payload).digest('base64url');
 
 export function setSession(res, user) {
   const payload = Buffer.from(JSON.stringify({ user, exp: Date.now() + MAX_AGE * 1000 })).toString('base64url');
-  res.append('Set-Cookie', `${COOKIE}=${payload}.${sign(payload)}; Path=/; HttpOnly; SameSite=Lax; Max-Age=${MAX_AGE}`);
+  res.append('Set-Cookie', `${COOKIE}=${payload}.${sign(payload)}; Path=/; ${ATTRS}; Max-Age=${MAX_AGE}`);
 }
 
 export function clearSession(res) {
-  res.append('Set-Cookie', `${COOKIE}=; Path=/; HttpOnly; SameSite=Lax; Max-Age=0`);
+  res.append('Set-Cookie', `${COOKIE}=; Path=/; ${ATTRS}; Max-Age=0`);
 }
 
 export function readSession(req) {
