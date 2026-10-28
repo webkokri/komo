@@ -1,0 +1,17 @@
+{
+  "name": "komorebi-server",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "start": "node --env-file=.env src/index.js",
+    "dev": "node --watch --env-file=.env src/index.js",
+    "seed": "node --env-file=.env src/seed.js",
+    "create-admin": "node --env-file=.env src/create-admin.js"
+  },
+  "dependencies": {
+    "express": "^4.21.2",
+    "multer": "^1.4.5-lts.2",
+    "pg": "^8.13.1"
+  }
+}

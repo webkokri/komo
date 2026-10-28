@@ -1,0 +1,27 @@
+{
+  "name": "komorebi-event-decor",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "dev:api": "npm --prefix server run dev",
+    "dev:all": "concurrently -n site,api -c cyan,green \"npm run dev\" \"npm run dev:api\"",
+    "seed": "npm --prefix server run seed",
+    "start": "npm --prefix server run start",
+    "create-admin": "npm --prefix server run create-admin --"
+  },
+  "dependencies": {
+    "framer-motion": "^11.11.0",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "react-router-dom": "^6.27.0"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-react": "^4.3.3",
+    "vite": "^5.4.10",
+    "concurrently": "^9.1.0"
+  }
+}

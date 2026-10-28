@@ -1,0 +1,34 @@
+import { defineConfig } from 'vite';
+import react from '@vitejs/plugin-react';
+import path from 'node:path';
+import { fileURLToPath } from 'node:url';
+
+const root = path.dirname(fileURLToPath(import.meta.url));
+
+// In development the Node API (server/) runs on :3001; proxying keeps requests same-origin.
+const api = { target: 'http://localhost:3001', changeOrigin: true };
+
+// The admin ("Studio CMS") is its own HTML entry so the public site's CSS never touches it.
+// In dev, /admin and /admin/* (that are not files) are served admin.html for client-side routing.
+function adminEntry() {
+  return {
+    name: 'studio-cms-admin-entry',
+    configureServer(server) {
+      server.middlewares.use((req, _res, next) => {
+        const url = (req.url ?? '').split('?')[0];
+        if ((url === '/admin' || url.startsWith('/admin/')) && !url.includes('.')) req.url = '/admin.html';
+        next();
+      });
+    },
+  };
+}
+
+export default defineConfig({
+  plugins: [react(), adminEntry()],
+  server: { proxy: { '/api': api, '/uploads': api } },
+  build: {
+    rollupOptions: {
+      input: { main: path.resolve(root, 'index.html'), admin: path.resolve(root, 'admin.html') },
+    },
+  },
+});
