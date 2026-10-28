@@ -2,6 +2,7 @@ import { Routes, Route, useLocation, Navigate } from 'react-router-dom';
 import { AnimatePresence, MotionConfig } from 'framer-motion';
 import Header from './components/Header.jsx';
 import ScrollProgress from './components/ScrollProgress.jsx';
+import SmoothScroll, { scrollToTop } from './components/SmoothScroll.jsx';
 import PageView, { ThemeStyle } from './cms/PageView.jsx';
 import Editor from './cms/editor/Editor.jsx';
 import { useCms } from './cms/store.jsx';
@@ -16,9 +17,10 @@ export default function App() {
     <MotionConfig reducedMotion={editing ? 'always' : 'user'}>
       <ThemeStyle />
       <a href="#main" className="skip-link">Skip to content</a>
+      <SmoothScroll />
       <ScrollProgress />
       <Header />
-      <AnimatePresence mode="wait" onExitComplete={() => window.scrollTo(0, 0)}>
+      <AnimatePresence mode="wait" onExitComplete={scrollToTop}>
         <Routes location={location} key={location.pathname}>
           <Route path="/login" element={<Navigate to="/admin/login" replace />} />
           <Route path="*" element={<PageView />} />

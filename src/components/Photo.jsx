@@ -33,7 +33,7 @@ export default function Photo({
         viewport={{ once: true, margin: '-60px' }}
         transition={{ duration: 1.5, ease: [0.22, 1, 0.36, 1] }}
       >
-        {src ? <img src={src} alt={alt} loading="lazy" /> : null}
+        {src ? <img src={src} alt={alt} loading="lazy" decoding="async" /> : null}
         {children}
       </motion.div>
       {!src && label ? <span className="photo__label">{label}</span> : null}
