@@ -205,10 +205,17 @@ const sendText = (res, type, body) => {
   res.set({ 'Content-Type': `${type}; charset=utf-8`, 'Cache-Control': 'public, s-maxage=300, stale-while-revalidate=3600' });
   res.send(body);
 };
-api.get('/seo/robots.txt', wrap(async (req, res) => sendText(res, 'text/plain', buildRobots((await siteData()).global))));
-api.get('/seo/sitemap.xml', wrap(async (req, res) => { const d = await siteData(); sendText(res, 'application/xml', buildSitemap(d.global, d.pages, { assetBase: ASSET_BASE() })); }));
-api.get('/seo/llms.txt', wrap(async (req, res) => { const d = await siteData(); sendText(res, 'text/plain', buildLlms(d.global, d.pages)); }));
-api.get('/seo/llms-full.txt', wrap(async (req, res) => { const d = await siteData(); sendText(res, 'text/plain', buildLlmsFull(d.global, d.pages)); }));
+const SEO_FILES = {
+  'robots.txt': async () => ['text/plain', buildRobots((await siteData()).global)],
+  'sitemap.xml': async () => { const d = await siteData(); return ['application/xml', buildSitemap(d.global, d.pages, { assetBase: ASSET_BASE() })]; },
+  'llms.txt': async () => { const d = await siteData(); return ['text/plain', buildLlms(d.global, d.pages)]; },
+  'llms-full.txt': async () => { const d = await siteData(); return ['text/plain', buildLlmsFull(d.global, d.pages)]; },
+};
+for (const [name, make] of Object.entries(SEO_FILES)) {
+  const handler = wrap(async (req, res) => { const [type, body] = await make(); sendText(res, type, body); });
+  api.get(`/seo/${name}`, handler);
+  app.get(`/${name}`, handler); // also at the site root, where crawlers look (Vercel rewrites reach here)
+}
 
 // Published pages and settings, used by the build step that writes static HTML for crawlers.
 api.get('/seo/site', wrap(async (req, res) => {
