@@ -4,7 +4,9 @@ import { fileURLToPath } from 'node:url';
 import pg from 'pg';
 
 // Hosted Postgres (Neon, Supabase, Vercel Postgres) needs TLS; local databases don't. Few connections: serverless spawns many instances.
-const url = process.env.DATABASE_URL || '';
+// Vercel's database integrations name the variable after the project (e.g. komo_POSTGRES_URL), so accept those too.
+const urlKey = ['DATABASE_URL', ...Object.keys(process.env).filter((k) => /(^|_)(POSTGRES_URL|DATABASE_URL)$/.test(k))].find((k) => process.env[k]);
+const url = (urlKey && process.env[urlKey]) || '';
 const local = /@(localhost|127\.0\.0\.1)[:/]/.test(url) || !url.includes('@');
 export const pool = new pg.Pool({ connectionString: url, max: 3, ssl: local ? undefined : { rejectUnauthorized: false } });
 

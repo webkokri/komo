@@ -5,8 +5,8 @@ import { importDiskUploads, migrate, pool } from './db.js';
 import { clearSession, rateLimit, readSession, requireEditor, setSession } from './session.js';
 import * as cms from './cms.js';
 
-for (const key of ['DATABASE_URL', 'SESSION_SECRET']) {
-  if (!process.env[key]) throw new Error(`Missing ${key}. Copy server/.env.example to server/.env and fill it in.`);
+for (const key of ['SESSION_SECRET']) {
+  if (!process.env[key]) throw new Error(`Missing ${key}. Add it to the Vercel project's environment variables (or server/.env locally).`);
 }
 
 const SLUG = /^[a-z0-9]+(?:-[a-z0-9]+)*$|^_global$/;
