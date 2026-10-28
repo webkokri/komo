@@ -78,6 +78,14 @@ const HOME = {
       primary: btn('Plan your event', CONTACT_URL),
       secondary: btn('See wedding décor', '/weddings'),
       image: pic('hero-wedding-ceremony.jpg', 'Wedding ceremony styled with florals and an arch'),
+      slides: [
+        { title: 'Corporate events', text: 'Conferences, launches and award nights styled to leave a lasting impression.', to: '/corporate-events', image: pic('conference-hall.jpg', 'Conference hall set for a corporate event') },
+        { title: 'Wedding events', text: 'Ceremony and reception décor shaped around your story.', to: '/weddings', image: pic('hero-wedding-ceremony.jpg', 'Wedding ceremony styled with florals and an arch') },
+        { title: 'Birthday celebrations', text: 'Themes, backdrops and balloons for birthdays of every age.', to: '/other-events', image: pic('birthday-event.jpeg', 'Birthday celebration with themed décor') },
+        { title: 'Baby showers', text: 'Soft, themed styling for welcoming a little one.', to: '/other-events', image: pic('baby-shower-backdrop.webp', 'Baby shower backdrop in pastel blue and pink') },
+        { title: 'Anniversaries & engagements', text: 'Romantic styling that marks the milestone.', to: '/other-events', image: pic('anniversary.webp', 'Anniversary celebration with romantic styling') },
+        { title: 'VIP dinners & galas', text: 'Refined table settings and venue styling for upscale evenings.', to: '/other-events', image: pic('vip-dinner.jpg', 'VIP lunch table styled for an exclusive dinner') },
+      ],
       dappled: true,
     }),
     section('home-why', 'story', {

@@ -1,12 +1,91 @@
-import { useId, useRef } from 'react';
-import { motion, useScroll, useTransform } from 'framer-motion';
+import { useEffect, useId, useRef, useState } from 'react';
+import { AnimatePresence, motion, useReducedMotion, useScroll, useTransform } from 'framer-motion';
 import DappledLight from '../../components/DappledLight.jsx';
-import { Quote } from '../../components/Icons.jsx';
+import { Arrow, Quote } from '../../components/Icons.jsx';
 import { EASE, Item, Reveal, Stagger } from '../../components/motion.jsx';
 import { Btn, CmsPhoto, Lnk, Txt } from '../fields.jsx';
 import { evenGrid } from '../grid.js';
 import { useCms } from '../store.jsx';
 import { mediaUrl } from '../api.js';
+
+const SLIDE_MS = 5500;
+
+/** Auto-playing showcase: the photo and its caption change together, one service at a time. */
+function HeroSlides({ base, props: p }) {
+  const { editing, get, openMedia } = useCms();
+  const reduce = useReducedMotion();
+  const slides = p.slides;
+  const [i, setI] = useState(0);
+  const [paused, setPaused] = useState(false);
+  const idx = Math.min(i, slides.length - 1);
+  const img = get(`${base}.slides.${idx}.image`) || {};
+
+  useEffect(() => {
+    if (editing || paused || slides.length < 2) return undefined;
+    const t = setTimeout(() => setI((n) => (n + 1) % slides.length), SLIDE_MS);
+    return () => clearTimeout(t);
+  }, [idx, editing, paused, slides.length]);
+
+  const go = (n) => setI((n + slides.length) % slides.length);
+
+  return (
+    <div
+      className="hero-slides"
+      onMouseEnter={() => setPaused(true)}
+      onMouseLeave={() => setPaused(false)}
+      onFocus={() => setPaused(true)}
+      onBlur={() => setPaused(false)}
+    >
+      <AnimatePresence initial={false}>
+        <motion.div
+          key={idx}
+          className="hero-slides__img"
+          initial={{ opacity: 0, scale: reduce ? 1 : 1.14 }}
+          animate={{ opacity: 1, scale: 1, transition: { opacity: { duration: 1.1 }, scale: { duration: reduce ? 0 : SLIDE_MS / 1000 + 1.5, ease: 'linear' } } }}
+          exit={{ opacity: 0, transition: { duration: 1.1 } }}
+        >
+          {img.src ? <img src={mediaUrl(img.src)} alt={img.alt || ''} /> : <span className="photo__label">Photo — service {idx + 1}</span>}
+        </motion.div>
+      </AnimatePresence>
+      {p.dappled !== false && <DappledLight />}
+      <div className="hero-slides__shade" aria-hidden="true" />
+
+      <div className="hero-slides__caption">
+        <AnimatePresence mode="wait">
+          <motion.div
+            key={idx}
+            initial={{ opacity: 0, y: 24 }}
+            animate={{ opacity: 1, y: 0, transition: { duration: 0.7, ease: EASE, delay: 0.25 } }}
+            exit={{ opacity: 0, y: -14, transition: { duration: 0.3 } }}
+          >
+            <span className="hero-slides__count">{String(idx + 1).padStart(2, '0')} / {String(slides.length).padStart(2, '0')}</span>
+            <Txt path={`${base}.slides.${idx}.title`} as="h2" className="hero-slides__title" />
+            <Txt path={`${base}.slides.${idx}.text`} as="p" className="hero-slides__text" multiline />
+            <Lnk to={slides[idx].to} className="link-arrow hero-slides__link">Explore <Arrow /></Lnk>
+          </motion.div>
+        </AnimatePresence>
+      </div>
+
+      <div className="hero-slides__nav">
+        {slides.map((s, n) => (
+          <button key={n} type="button" className={`hero-slides__dot ${n === idx ? 'is-active' : ''}`} aria-label={`Show ${s.title}`} aria-current={n === idx} onClick={() => go(n)}>
+            {n === idx && !editing ? <motion.span key={`${idx}-${paused}`} className="hero-slides__bar" initial={{ scaleX: 0 }} animate={{ scaleX: paused ? 0 : 1 }} transition={{ duration: paused ? 0 : SLIDE_MS / 1000, ease: 'linear' }} /> : null}
+          </button>
+        ))}
+      </div>
+
+      {editing && (
+        <>
+          <button type="button" className="photo__edit cms-ui" onClick={() => openMedia(`${base}.slides.${idx}.image`)}>{img.src ? 'Change image' : 'Add image'}</button>
+          <div className="hero-slides__arrows cms-ui">
+            <button type="button" onClick={() => go(idx - 1)} aria-label="Previous slide">‹</button>
+            <button type="button" onClick={() => go(idx + 1)} aria-label="Next slide">›</button>
+          </div>
+        </>
+      )}
+    </div>
+  );
+}
 
 export function Hero({ base, props: p }) {
   const { editing } = useCms();
@@ -38,9 +117,13 @@ export function Hero({ base, props: p }) {
         </motion.div>
 
         <motion.div style={editing ? undefined : { y: photoY }}>
-          <CmsPhoto path={`${base}.image`} tone="dark" className="hero__photo" height="clamp(360px, 44vw, 600px)">
-            {p.dappled !== false && <DappledLight />}
-          </CmsPhoto>
+          {p.slides?.length ? (
+            <HeroSlides base={base} props={p} />
+          ) : (
+            <CmsPhoto path={`${base}.image`} tone="dark" className="hero__photo" height="clamp(360px, 44vw, 600px)">
+              {p.dappled !== false && <DappledLight />}
+            </CmsPhoto>
+          )}
         </motion.div>
       </div>
     </section>

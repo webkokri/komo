@@ -18,7 +18,7 @@ const TONES = [['dark', 'Dark'], ['sand', 'Sand'], ['default', 'Light'], ['moss'
 export const SECTION_TYPES = {
   hero: {
     label: 'Hero', description: 'Large intro with photo and two buttons', component: Hero,
-    fields: [text('eyebrow', 'Small heading'), text('title', 'Heading'), area('lead', 'Intro text'), link('primary', 'Main button'), link('secondary', 'Second button'), image(), { key: 'dappled', label: 'Dappled light overlay', type: 'toggle' }],
+    fields: [text('eyebrow', 'Small heading'), text('title', 'Heading'), area('lead', 'Intro text'), link('primary', 'Main button'), link('secondary', 'Second button'), list('slides', 'Service slideshow', 'title', [image(), text('title', 'Service'), area('text', 'Short description'), { key: 'to', label: 'Links to', type: 'url' }], { title: 'New service', text: 'Describe it.', to: '/', image: photo('Photo — service') }), image('image', 'Fallback image (used if there are no slides)'), { key: 'dappled', label: 'Dappled light overlay', type: 'toggle' }],
     defaults: { eyebrow: 'Welcome', title: 'A headline that sets the scene.', lead: 'Add a short introduction here.', primary: btn('Get in touch', '/contact'), secondary: btn('Learn more', '/about'), image: photo('Photo — hero'), dappled: true },
   },
   pageHero: {
