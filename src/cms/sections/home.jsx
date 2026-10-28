@@ -19,6 +19,8 @@ function HeroSlides({ base, props: p }) {
   const [paused, setPaused] = useState(false);
   const idx = Math.min(i, slides.length - 1);
   const img = get(`${base}.slides.${idx}.image`) || {};
+  const nextImg = get(`${base}.slides.${(idx + 1) % slides.length}.image`) || {};
+  const sealId = useId().replace(/:/g, '');
 
   useEffect(() => {
     if (editing || paused || slides.length < 2) return undefined;
@@ -30,12 +32,16 @@ function HeroSlides({ base, props: p }) {
 
   return (
     <div
-      className="hero-slides"
+      className="hero-card"
       onMouseEnter={() => setPaused(true)}
       onMouseLeave={() => setPaused(false)}
       onFocus={() => setPaused(true)}
       onBlur={() => setPaused(false)}
     >
+      <span className="hero-card__frame" aria-hidden="true" />
+      <span className="hero-card__glow" aria-hidden="true" />
+      <span className="hero-card__dots" aria-hidden="true" />
+      <div className="hero-slides">
       <AnimatePresence initial={false}>
         <motion.div
           key={idx}
@@ -53,6 +59,7 @@ function HeroSlides({ base, props: p }) {
       <div className="hero-slides__caption">
         <AnimatePresence mode="wait">
           <motion.div
+            className="hero-slides__panel"
             key={idx}
             initial={{ opacity: 0, y: 24 }}
             animate={{ opacity: 1, y: 0, transition: { duration: 0.7, ease: EASE, delay: 0.25 } }}
@@ -83,6 +90,25 @@ function HeroSlides({ base, props: p }) {
           </div>
         </>
       )}
+
+      {!editing && slides.length > 1 && (
+        <button type="button" className="hero-slides__next" onClick={() => go(idx + 1)} aria-label={`Next: ${slides[(idx + 1) % slides.length].title}`}>
+          <span className="hero-slides__thumb">
+            {nextImg.src ? <img src={mediaUrl(nextImg.src)} alt="" /> : null}
+          </span>
+          <span className="hero-slides__nexttext"><small>Next</small>{slides[(idx + 1) % slides.length].title}</span>
+        </button>
+      )}
+      </div>
+
+      <svg className="hero-card__seal" viewBox="0 0 120 120" aria-hidden="true">
+        <defs><path id={`seal-${sealId}`} d="M60,60 m-46,0 a46,46 0 1,1 92,0 a46,46 0 1,1 -92,0" /></defs>
+        <circle cx="60" cy="60" r="58" className="hero-card__seal-bg" />
+        <g className="hero-card__seal-ring">
+          <text><textPath href={`#seal-${sealId}`} startOffset="0" textLength="284" lengthAdjust="spacing">KOMOREBI · ELITE DÉCOR STUDIO ·</textPath></text>
+        </g>
+        <text x="60" y="73" textAnchor="middle" className="hero-card__seal-kanji">木漏れ日</text>
+      </svg>
     </div>
   );
 }
