@@ -1,0 +1,25 @@
+# Komorebi Interiors
+
+> Komorebi Interiors is an elite event décor studio. We design and install backdrops, florals and full venue décor for weddings, corporate events and luxury private occasions, and style interiors for homes, offices and showrooms.
+
+## Key facts
+- Phone: +1 431 830 0002
+- Email: info@komorebiinteriors.ca
+- Address: Toronto, ON, CA
+- Service area: Toronto; Greater Toronto Area
+- Hours: Mon–Fri, 10:00 AM – 6:00 PM
+- Komorebi (木漏れ日) is a Japanese word for sunlight filtering through leaves.
+- Services: elite event décor (corporate events, weddings, anniversaries, engagements, VIP dinners, galas, baptisms, convocations and funerals or memorials) and interior décor.
+- Every setup is customised to the occasion, venue and client; designs are never copied from a catalogue.
+
+## Pages
+- [Home](https://komorebiinteriors.ca/): Elite event and interior décor: backdrops, florals and full venue styling for weddings, corporate events and luxury private occasions.
+- [Corporate Events](https://komorebiinteriors.ca/corporate-events): Luxury décor and event styling for conferences, product launches, award ceremonies and corporate celebrations.
+- [Elite Events](https://komorebiinteriors.ca/other-events): Elegant décor for VIP dinners, anniversaries, engagements, galas, baptisms, convocations and memorials.
+- [Services](https://komorebiinteriors.ca/services): Elite décor for corporate events, weddings, anniversaries, VIP dinners, baptisms, convocations, funerals and interiors.
+- [Weddings](https://komorebiinteriors.ca/weddings): Tailored wedding décor and ceremony styling with personalised concepts and thoughtful details.
+- [About Us](https://komorebiinteriors.ca/about-us): Our mission, vision and the story behind Komorebi, the Toronto décor studio for weddings, corporate events and celebrations.
+- [Contact Us](https://komorebiinteriors.ca/contact-us): Get in touch with Komorebi for wedding, corporate event, celebration and interior décor styling.
+
+## Full content
+- [Complete site text for AI](https://komorebiinteriors.ca/llms-full.txt)
