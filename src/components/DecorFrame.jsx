@@ -1,5 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { motion, useInView, useReducedMotion } from 'framer-motion';
+import { useTheme } from '../cms/theme.jsx';
+import Flora, { GarlandBlossom } from './Flora.jsx';
 
 const EASE = [0.22, 1, 0.36, 1];
 
@@ -46,7 +48,8 @@ const STARS = [
  * and small sparkles twinkle. Place inside a `position: relative` parent. `inset` can be negative to sit outside.
  * `radii` = [tl, tr, br, bl] (px). `replayKey` re-grows the ornaments (for slideshows).
  */
-export default function DecorFrame({ inset = 12, radii = [2, 2, 2, 2], corners = ['tl', 'tr', 'br', 'bl'], delay = 0.2, replayKey, stars = true, className = '' }) {
+export default function DecorFrame({ inset = 12, radii = [2, 2, 2, 2], corners = ['tl', 'tr', 'br', 'bl'], flora = [], floraSmall = [], floraMax = 190, garland = true, delay = 0.2, replayKey, stars = true, variant = 'line', className = '' }) {
+  const corp = useTheme() === 'corporate';
   const ref = useRef(null);
   const reduce = useReducedMotion();
   const inView = useInView(ref, { once: true, margin: '-40px' });
@@ -64,12 +67,45 @@ export default function DecorFrame({ inset = 12, radii = [2, 2, 2, 2], corners =
   const h = Math.max(0, box.h);
   const big = w >= 220 && h >= 170;
   const size = Math.max(34, Math.min(64, Math.min(w, h) / 6));
+  const floraSize = Math.max(76, Math.min(floraMax, Math.min(w, h) / 2.6));
+  const margin = floraSize * 0.82;
+  const edge = (len) => Math.max(0, Math.floor((len - margin * 2) / 74));
+  const spots = [];
+  if (big && garland) {
+    const nx = edge(w); const ny = edge(h);
+    for (let i = 0; i < nx; i += 1) { const x = margin + ((w - margin * 2) * (i + 0.5)) / nx; spots.push({ x, y: 0 }, { x, y: h }); }
+    for (let i = 0; i < ny; i += 1) { const y = margin + ((h - margin * 2) * (i + 0.5)) / ny; spots.push({ x: 0, y }, { x: w, y }); }
+  }
+  const floraOffset = inset < 0 ? -10 : -8;
   const on = inView || !!reduce;
   const line = (d, inner) => (reduce ? { duration: 0 } : { duration: inner ? 1.7 : 1.5, delay: d, ease: EASE });
 
+  if (corp) {
+    const L = Math.min(46, w / 3, h / 3);
+    const corners = [`M0 ${L} V0 H${L}`, `M${w - L} 0 H${w} V${L}`, `M${w} ${h - L} V${h} H${w - L}`, `M${L} ${h} H0 V${h - L}`];
+    return (
+      <div ref={ref} className={`decor-frame decor-frame--corp ${on ? 'is-live' : ''} ${className}`} style={{ inset }} aria-hidden="true">
+        {w > 0 && (
+          <svg width={w} height={h} viewBox={`0 0 ${w} ${h}`} className="decor-frame__line">
+            <motion.path d={framePath(w, h, [0, 0, 0, 0])} fill="none" stroke="currentColor" strokeOpacity="0.55" strokeWidth="1" initial={{ pathLength: 0 }} animate={{ pathLength: on ? 1 : 0 }} transition={line(delay)} />
+            {big && <path className="corp-streak" d={framePath(w, h, [0, 0, 0, 0])} pathLength="100" fill="none" stroke="var(--sun)" strokeWidth="2.4" />}
+            {corners.map((d, i) => <motion.path key={i} d={d} fill="none" stroke="var(--sun)" strokeWidth="3" strokeLinecap="square" initial={{ pathLength: 0 }} animate={{ pathLength: on ? 1 : 0 }} transition={line(delay + 0.2 + i * 0.12)} />)}
+          </svg>
+        )}
+      </div>
+    );
+  }
+
   return (
-    <div ref={ref} className={`decor-frame ${className}`} style={{ inset }} aria-hidden="true">
-      {w > 0 && (
+    <div ref={ref} className={`decor-frame ${on ? 'is-live' : ''} ${className}`} style={{ inset }} aria-hidden="true">
+      {w > 0 && variant === 'brackets' && (
+        <svg width={w} height={h} viewBox={`0 0 ${w} ${h}`} className="decor-frame__line">
+          {[`M0 ${Math.min(44, h / 3)} V0 H${Math.min(44, w / 3)}`, `M${w - Math.min(44, w / 3)} 0 H${w} V${Math.min(44, h / 3)}`, `M${w} ${h - Math.min(44, h / 3)} V${h} H${w - Math.min(44, w / 3)}`, `M${Math.min(44, w / 3)} ${h} H0 V${h - Math.min(44, h / 3)}`].map((d, i) => (
+            <motion.path key={i} d={d} fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="square" initial={{ pathLength: 0 }} animate={{ pathLength: on ? 1 : 0 }} transition={line(delay + i * 0.18)} />
+          ))}
+        </svg>
+      )}
+      {w > 0 && variant !== 'brackets' && (
         <svg width={w} height={h} viewBox={`0 0 ${w} ${h}`} className="decor-frame__line">
           <motion.path d={framePath(w, h, radii)} fill="none" stroke="currentColor" strokeWidth="1.3" initial={{ pathLength: 0 }} animate={{ pathLength: on ? 1 : 0 }} transition={line(delay)} />
           {big && (
@@ -79,7 +115,14 @@ export default function DecorFrame({ inset = 12, radii = [2, 2, 2, 2], corners =
           )}
         </svg>
       )}
-      {big && corners.map((c) => <Sprig key={`${c}-${replayKey}`} corner={c} size={size} offset={-6} on={on} delay={delay + 1.1} reduce={reduce} />)}
+      {big && corners.filter((c) => !flora.includes(c) && !floraSmall.includes(c)).map((c) => <Sprig key={`${c}-${replayKey}`} corner={c} size={size} offset={-6} on={on} delay={delay + 1.1} reduce={reduce} />)}
+      {big && spots.slice(0, 26).map((p, i) => (
+        <span key={`g${i}`} className="decor-garland" style={{ left: p.x, top: p.y, '--d': `${delay + 1.5 + i * 0.045}s` }}>
+          <span>{i % 3 === 2 ? <i className="decor-garland__dot" /> : <GarlandBlossom index={i} size={i % 2 ? 15 : 19} />}</span>
+        </span>
+      ))}
+      {big && floraSmall.map((c) => <Flora key={`s${c}`} corner={c} size={floraSize * 0.64} offset={floraOffset} on={on} delay={delay + 1.35} />)}
+      {big && flora.map((c) => <Flora key={c} corner={c} size={floraSize} offset={floraOffset} on={on} delay={delay + 1.0} />)}
       {big && stars && STARS.map((s, i) => (
         <span key={i} className="decor-star" style={{ left: `${s.x * 100}%`, top: `${s.y * 100}%`, '--d': `${s.d}s`, opacity: on ? undefined : 0 }}>
           <svg viewBox="0 0 24 24" width="14" height="14"><path d="M12 0 L14.2 9.8 L24 12 L14.2 14.2 L12 24 L9.8 14.2 L0 12 L9.8 9.8Z" fill="currentColor" /></svg>

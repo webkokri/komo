@@ -2,6 +2,7 @@
 // Field types: text | textarea | link | url | image | select | toggle | number | strings | list
 import { AboutHero, Cta, Faq, FeatureGrid, ImageBand, NotFoundBlock, PageHero, ProjectGrid, ServiceBlock, Spacer, TeamGrid, TextBlock, TextColumns, ValueCards, Workshop } from './sections/pages.jsx';
 import { CardGrid, Hero, Steps, Story, Testimonial, WorkGrid } from './sections/home.jsx';
+import { Marquee } from './sections/marquee.jsx';
 import { ContactSection } from './sections/contact.jsx';
 
 const text = (key, label, extra) => ({ key, label, type: 'text', ...extra });
@@ -20,6 +21,11 @@ export const SECTION_TYPES = {
     label: 'Hero', description: 'Large intro with photo and two buttons', component: Hero,
     fields: [text('eyebrow', 'Small heading'), text('title', 'Heading'), area('lead', 'Intro text'), link('primary', 'Main button'), link('secondary', 'Second button'), list('slides', 'Service slideshow', 'title', [image(), text('title', 'Service'), area('text', 'Short description'), { key: 'to', label: 'Links to', type: 'url' }], { title: 'New service', text: 'Describe it.', to: '/', image: photo('Photo — service') }), image('image', 'Fallback image (used if there are no slides)'), { key: 'dappled', label: 'Dappled light overlay', type: 'toggle' }],
     defaults: { eyebrow: 'Welcome', title: 'A headline that sets the scene.', lead: 'Add a short introduction here.', primary: btn('Get in touch', '/contact'), secondary: btn('Learn more', '/about'), image: photo('Photo — hero'), dappled: true },
+  },
+  marquee: {
+    label: 'Scrolling ribbon', description: 'A slow, scrolling line of words with gold stars', component: Marquee,
+    fields: [{ key: 'tone', label: 'Background', type: 'select', options: [['dark', 'Dark'], ['light', 'Light']] }, { key: 'speed', label: 'Seconds per loop (lower = faster)', type: 'text' }, list('items', 'Words', 'text', [text('text', 'Text')], { text: 'New word' })],
+    defaults: { tone: 'dark', speed: '38', items: [{ text: 'Wedding décor' }, { text: 'Corporate events' }, { text: 'VIP dinners' }, { text: 'Interior décor' }] },
   },
   pageHero: {
     label: 'Page heading', description: 'Title and intro at the top of a page', component: PageHero,

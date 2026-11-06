@@ -2,6 +2,8 @@ import { Routes, Route, useLocation, Navigate } from 'react-router-dom';
 import { AnimatePresence, MotionConfig } from 'framer-motion';
 import Header from './components/Header.jsx';
 import ScrollProgress from './components/ScrollProgress.jsx';
+import CursorSparkle from './components/CursorSparkle.jsx';
+import PerfGovernor from './components/PerfGovernor.jsx';
 import SmoothScroll, { scrollToTop } from './components/SmoothScroll.jsx';
 import PageView, { ThemeStyle } from './cms/PageView.jsx';
 import Editor from './cms/editor/Editor.jsx';
@@ -22,6 +24,8 @@ export default function App() {
       <Redirects />
       <CodeInjection />
       <SmoothScroll />
+      <CursorSparkle />
+      <PerfGovernor />
       <ScrollProgress />
       <Header />
       <AnimatePresence mode="wait" onExitComplete={scrollToTop}>

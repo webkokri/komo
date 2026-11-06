@@ -92,7 +92,7 @@ export function Btn({ path, className, arrow, ...rest }) {
 }
 
 /** Photo bound to `{ src, alt, label, height? }` at `path`; click to swap while editing. */
-export function CmsPhoto({ path, height = 440, tone, className, style, children }) {
+export function CmsPhoto({ path, height = 440, tone, className, style, frame, children }) {
   const { editing, get, openMedia } = useCms();
   const img = get(path) || {};
   return (
@@ -102,6 +102,7 @@ export function CmsPhoto({ path, height = 440, tone, className, style, children 
       label={img.label}
       height={img.height || height}
       tone={tone}
+      frame={img.frame && img.frame !== 'auto' ? img.frame : frame}
       className={className}
       style={style}
       onEdit={editing ? () => openMedia(path) : undefined}

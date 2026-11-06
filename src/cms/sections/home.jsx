@@ -46,7 +46,7 @@ function HeroSlides({ base, props: p }) {
       onFocus={() => setPaused(true)}
       onBlur={() => setPaused(false)}
     >
-      <DecorFrame className="hero-card__frame" inset={-16} radii={narrow ? [136, 42, 42, 42] : [236, 50, 50, 50]} corners={['tr', 'br', 'bl']} delay={0.6} replayKey={idx} />
+      <DecorFrame className="hero-card__frame" inset={-16} radii={narrow ? [136, 42, 42, 42] : [236, 50, 50, 50]} corners={['tr', 'br', 'bl']} flora={['tr', 'br']} floraSmall={['bl']} floraMax={narrow ? 84 : 138} garland={!narrow} delay={0.6} replayKey={idx} />
       <span className="hero-card__glow" aria-hidden="true" />
       <span className="hero-card__dots" aria-hidden="true" />
       <div className="hero-slides">
@@ -241,7 +241,7 @@ export function WorkGrid({ base, props: p }) {
           {p.items.map((it, i) => (
             <Reveal key={i} delay={i * 0.12}>
               <Lnk to={it.to} className="work-card hover-zoom">
-                <CmsPhoto path={`${base}.items.${i}.image`} height={440} />
+                <CmsPhoto path={`${base}.items.${i}.image`} height={440} frame="brackets" />
                 <Txt path={`${base}.items.${i}.cat`} className="work-card__cat" />
                 <Txt path={`${base}.items.${i}.title`} as="h3" className="work-card__title" />
                 <Txt path={`${base}.items.${i}.meta`} className="work-card__meta" />
@@ -259,7 +259,7 @@ export function Story({ base, props: p }) {
   return (
     <section className="section section--sand" aria-labelledby={headId}>
       <div className="container split">
-        <CmsPhoto path={`${base}.image`} tone="sand" height={520} />
+        <CmsPhoto path={`${base}.image`} tone="sand" height={520} frame="arch" />
         <div className="stack" style={{ gap: 24 }}>
           <Txt
             path={`${base}.kanji`}

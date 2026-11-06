@@ -235,7 +235,7 @@ export function TeamGrid({ base, props: p }) {
         <div className="grid-even" style={evenGrid(p.items.length)}>
           {p.items.map((_, i) => (
             <Reveal key={i} className="team-card hover-zoom" delay={i * 0.1}>
-              <CmsPhoto path={`${base}.items.${i}.image`} height={320} />
+              <CmsPhoto path={`${base}.items.${i}.image`} height={320} frame="brackets" />
               <Txt path={`${base}.items.${i}.name`} as="h3" />
               <Txt path={`${base}.items.${i}.role`} />
             </Reveal>
@@ -329,7 +329,7 @@ export function ProjectGrid({ base, props: p }) {
                 animate={{ opacity: 1, y: 0, scale: 1, transition: { duration: 0.6, ease: EASE, delay: n * 0.05 } }}
                 exit={{ opacity: 0, scale: 0.94, transition: { duration: 0.3 } }}
               >
-                <CmsPhoto path={`${base}.items.${it.i}.image`} height={380} />
+                <CmsPhoto path={`${base}.items.${it.i}.image`} height={380} frame="brackets" />
                 <Txt path={`${base}.items.${it.i}.cat`} className="work-card__cat" />
                 <Txt path={`${base}.items.${it.i}.title`} as="h2" className="work-card__title" />
                 <Txt path={`${base}.items.${it.i}.meta`} className="work-card__meta" />

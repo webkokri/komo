@@ -69,6 +69,17 @@ function ImageField({ path, label }) {
       </div>
       <TextInput path={`${path}.alt`} label="Alt text (describes the image)" />
       <label className="cms-field">
+        <Label hint="decoration around the photo">Frame</Label>
+        <select value={img.frame || 'auto'} onChange={(e) => set(`${path}.frame`, e.target.value === 'auto' ? undefined : e.target.value)}>
+          <option value="auto">Automatic</option>
+          <option value="line">Gold line with sprigs</option>
+          <option value="arch">Arch window</option>
+          <option value="brackets">Corner brackets</option>
+          <option value="gallery">Picture frame (art deco)</option>
+          <option value="none">No frame</option>
+        </select>
+      </label>
+      <label className="cms-field">
         <Label hint="optional">Height in pixels</Label>
         <input
           type="number"

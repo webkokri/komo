@@ -1,5 +1,6 @@
 import { Fragment } from 'react';
 import { motion } from 'framer-motion';
+import { useTheme } from '../cms/theme.jsx';
 
 export const EASE = [0.22, 1, 0.36, 1];
 
@@ -13,13 +14,21 @@ export const fadeUp = {
   }),
 };
 
+// Corporate pages slide in from the left with a sharper curve instead of rising softly.
+const SNAP = [0.7, 0, 0.2, 1];
+export const slideIn = {
+  hidden: { opacity: 0, x: -44 },
+  show: (delay = 0) => ({ opacity: 1, x: 0, transition: { duration: 0.65, ease: SNAP, delay } }),
+};
+
 const viewport = { once: true, margin: '-80px' };
 
 /** Reveals its content when scrolled into view. */
 export function Reveal({ as = 'div', delay = 0, children, ...rest }) {
   const M = motion[as];
+  const corp = useTheme() === 'corporate';
   return (
-    <M initial="hidden" whileInView="show" viewport={viewport} variants={fadeUp} custom={delay} {...rest}>
+    <M initial="hidden" whileInView="show" viewport={viewport} variants={corp ? slideIn : fadeUp} custom={delay} {...rest}>
       {children}
     </M>
   );
@@ -43,8 +52,9 @@ export function Stagger({ as = 'div', gap = 0.09, delay = 0, children, ...rest }
 
 export function Item({ as = 'div', children, ...rest }) {
   const M = motion[as];
+  const corp = useTheme() === 'corporate';
   return (
-    <M variants={fadeUp} {...rest}>
+    <M variants={corp ? slideIn : fadeUp} {...rest}>
       {children}
     </M>
   );

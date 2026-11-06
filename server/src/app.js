@@ -167,7 +167,7 @@ api.delete('/pages/:slug', requireEditor, validSlug, wrap(async (req, res) => {
 // Rename a page's URL, change its title or search description without opening the editor.
 api.patch('/pages/:slug', requireEditor, validSlug, wrap(async (req, res) => {
   const { slug } = req.params;
-  const { title, description, seoTitle, newSlug, seo, code } = req.body || {};
+  const { title, description, seoTitle, newSlug, seo, code, theme } = req.body || {};
   const [page] = await cms.getPages([slug]);
   if (!page) return res.status(404).json({ error: 'Publish this page first.' });
   const patchMeta = (meta = {}) => {
@@ -175,6 +175,7 @@ api.patch('/pages/:slug', requireEditor, validSlug, wrap(async (req, res) => {
     if (title !== undefined) next.title = title;
     if (seoTitle !== undefined) next.seoTitle = seoTitle;
     if (description !== undefined) next.seoDescription = description;
+    if (theme !== undefined) { if (theme === 'corporate') next.theme = 'corporate'; else delete next.theme; }
     if (seo && typeof seo === 'object') next.seo = { ...meta.seo, ...seo };
     if (code && typeof code === 'object' && req.user.role === 'admin') next.code = { ...meta.code, ...code };
     return next;

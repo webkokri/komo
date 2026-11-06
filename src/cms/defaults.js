@@ -3,6 +3,7 @@
 // Images are served from server/uploads (see the media library in the admin).
 
 const pic = (file, alt) => ({ src: `/uploads/${file}`, alt, label: alt });
+const ph = (label) => ({ src: '', alt: '', label });
 const section = (id, type, props) => ({ id, type, props });
 const btn = (label, to) => ({ label, to });
 
@@ -19,6 +20,7 @@ export const GLOBAL = {
     nav: [
       { label: 'Home', to: '/' },
       { label: 'About Us', to: '/about-us' },
+      { label: 'Services', to: '/services' },
       { label: 'Corporate Events', to: '/corporate-events' },
       { label: 'Weddings', to: '/weddings' },
       { label: 'Elite Events', to: '/other-events' },
@@ -32,6 +34,7 @@ export const GLOBAL = {
       {
         title: 'Events',
         links: [
+          { label: 'All services', to: '/services' },
           { label: 'Corporate events', to: '/corporate-events' },
           { label: 'Weddings', to: '/weddings' },
           { label: 'Elite events', to: '/other-events' },
@@ -89,13 +92,16 @@ export const GLOBAL = {
       serviceAreas: ['Toronto', 'Greater Toronto Area'],
       openingHours: 'Mo-Fr 10:00-18:00',
       languages: 'English',
-      knowsAbout: 'event décor, interior décor, wedding décor, corporate event styling, floral design, backdrops, tablescapes',
+      knowsAbout: 'event décor, interior décor, baptism décor, convocation décor, funeral and memorial décor, wedding décor, corporate event styling, floral design, backdrops, tablescapes',
       sameAs: '',
       services: [
         { name: 'Corporate event décor', description: 'Conferences, product launches and award nights styled to reflect your brand.' },
         { name: 'Wedding décor', description: 'Ceremony and reception styling, florals, arches and tablescapes.' },
         { name: 'Anniversary and engagement décor', description: 'Romantic styling for milestone celebrations and private gatherings.' },
         { name: 'VIP dinners and galas', description: 'Table settings and venue styling for upscale evenings.' },
+        { name: 'Baptism décor', description: 'Soft florals, backdrops and table styling for christenings and baptism receptions.' },
+        { name: 'Convocation event décor', description: 'Photo backdrops, stage and reception styling for graduation and convocation celebrations.' },
+        { name: 'Funeral and memorial décor', description: 'Dignified floral tributes, memory tables and venue styling for funeral services and memorial gatherings.' },
         { name: 'Interior décor', description: 'Elevated styling for homes, offices and showrooms: furnishings, florals and finishing touches.' },
       ],
     },
@@ -103,7 +109,7 @@ export const GLOBAL = {
       summary: 'Komorebi Interiors is an elite event décor studio. We design and install backdrops, florals and full venue décor for weddings, corporate events and luxury private occasions, and style interiors for homes, offices and showrooms.',
       facts: [
         'Komorebi (木漏れ日) is a Japanese word for sunlight filtering through leaves.',
-        'Services: elite event décor (corporate events, weddings, anniversaries, engagements, VIP dinners and galas) and interior décor.',
+        'Services: elite event décor (corporate events, weddings, anniversaries, engagements, VIP dinners, galas, baptisms, convocations and funerals or memorials) and interior décor.',
         'Every setup is customised to the occasion, venue and client; designs are never copied from a catalogue.',
       ],
       bots: Object.fromEntries(['GPTBot', 'OAI-SearchBot', 'ChatGPT-User', 'ClaudeBot', 'Claude-SearchBot', 'Claude-User', 'PerplexityBot', 'Perplexity-User', 'Google-Extended', 'Applebot-Extended', 'Meta-ExternalAgent', 'Amazonbot', 'CCBot', 'Bytespider'].map((n) => [n, 'allow'])),
@@ -139,6 +145,11 @@ const HOME = {
       ],
       dappled: true,
     }),
+    section('home-ribbon', 'marquee', {
+      tone: 'dark',
+      speed: '40',
+      items: [{ text: 'Wedding décor' }, { text: 'Corporate events' }, { text: 'Anniversaries & engagements' }, { text: 'VIP dinners' }, { text: 'Gala evenings' }, { text: 'Baptism décor' }, { text: 'Convocation décor' }, { text: 'Memorial décor' }, { text: 'Interior décor' }, { text: '木漏れ日' }],
+    }),
     section('home-why', 'story', {
       image: pic('floral-centerpieces-candles.jpg', 'Floral centrepieces with lit candles on a reception table'),
       kanji: '木漏れ日',
@@ -154,11 +165,11 @@ const HOME = {
     section('home-services', 'cardGrid', {
       eyebrow: 'Our exceptional services',
       title: 'Creating delight for you.',
-      link: btn('All events', '/other-events'),
+      link: btn('All services', '/services'),
       items: [
         { num: '01', title: 'Corporate event décor', text: 'Conferences, launches and award nights styled to leave a lasting impression on your brand and guests.', to: '/corporate-events' },
         { num: '02', title: 'Wedding décor', text: 'Ceremony and reception décor shaped around your story, from the first look to the last dance.', to: '/weddings' },
-        { num: '03', title: 'Elite private event décor', text: 'Anniversaries, engagements, VIP dinners and galas with a refined, personal finish.', to: '/other-events' },
+        { num: '03', title: 'Elite private event décor', text: 'Anniversaries, engagements, baptisms, convocations, memorials, VIP dinners and galas with a refined, personal finish.', to: '/services' },
         { num: '04', title: 'Interior décor', text: 'Elevated styling for homes, offices and showrooms: furnishings, florals and finishing touches chosen for your space.', to: CONTACT_URL },
       ],
     }),
@@ -233,6 +244,7 @@ const ABOUT = {
 const CORPORATE = {
   meta: {
     title: 'Corporate Events',
+    theme: 'corporate',
     seoTitle: 'Corporate Event Décor — KOMOREBI',
     seoDescription: 'Luxury décor and event styling for conferences, product launches, award ceremonies and corporate celebrations.',
   },
@@ -339,7 +351,7 @@ const OTHER = {
   meta: {
     title: 'Elite Events',
     seoTitle: 'Elite Event Décor — KOMOREBI',
-    seoDescription: 'Elegant décor for VIP dinners, anniversaries, engagements, private gatherings and galas.',
+    seoDescription: 'Elegant décor for VIP dinners, anniversaries, engagements, galas, baptisms, convocations and memorials.',
   },
   sections: [
     section('ev-hero', 'pageHero', {
@@ -354,18 +366,20 @@ const OTHER = {
       align: 'left',
       eyebrow: 'Elegant décor for every occasion',
       title: 'More ways to celebrate.',
-      body: 'From VIP dinners and galas to anniversaries and engagements, we style each event with personalised décor and careful installation.',
+      body: 'From VIP dinners and galas to anniversaries, baptisms, convocations and memorials, we style each event with personalised décor and careful installation.',
       button: btn('Plan your occasion', CONTACT_URL),
     }),
     section('ev-grid', 'workGrid', {
       eyebrow: 'Occasions we style',
-      title: 'Four ways we style elite occasions.',
+      title: 'Six ways we style meaningful occasions.',
       link: btn('', '/'),
       items: [
         { cat: 'Dining', title: 'VIP lunch & dinner', meta: 'Table settings and styling for exclusive dining.', to: CONTACT_URL, image: pic('vip-dinner.jpg', 'VIP lunch table styled for an exclusive dinner') },
         { cat: 'Milestone', title: 'Anniversaries & engagements', meta: 'Romantic styling that marks the milestone and the announcement.', to: CONTACT_URL, image: pic('anniversary.webp', 'Anniversary celebration with romantic styling') },
-        { cat: 'Private', title: 'Private gatherings', meta: 'Décor for intimate and family occasions.', to: CONTACT_URL, image: pic('private-gathering.png', 'Intimate private gathering décor') },
         { cat: 'Gala', title: 'Gala & cocktail events', meta: 'Venue styling for upscale evenings.', to: CONTACT_URL, image: pic('gala-cocktail.webp', 'Gala and cocktail event venue styling') },
+        { cat: 'Ceremony', title: 'Baptism décor', meta: 'Soft, reverent styling for christenings.', to: '/services#baptism', image: pic('baptism-ceremony.jpg', 'Priest pouring water over a baby\'s head during a baptism, with a gold dish and ornate vestments') },
+        { cat: 'Celebration', title: 'Convocation event décor', meta: 'Backdrops and reception styling for graduations.', to: '/services#convocation', image: pic('convocation-graduation.jpg', 'Graduation celebration with a Congratulations Graduate banner, gold, black and purple balloons and a dessert table') },
+        { cat: 'Remembrance', title: 'Funeral & memorial décor', meta: 'Dignified floral tributes and settings.', to: '/services#funeral', image: pic('memorial-floral-arch.jpg', 'White arched backdrop with cascading white roses and greenery') },
       ],
     }),
     section('ev-features', 'featureGrid', {
@@ -408,7 +422,7 @@ const CONTACT = {
         { name: 'name', label: 'Full name', type: 'text', required: true, autocomplete: 'name' },
         { name: 'email', label: 'Email', type: 'email', required: true, autocomplete: 'email' },
         { name: 'phone', label: 'Phone (optional)', type: 'tel', autocomplete: 'tel' },
-        { name: 'type', label: 'Type of event', type: 'select', placeholder: 'Choose one', options: ['Corporate event', 'Wedding', 'Anniversary or engagement', 'VIP dinner or gala', 'Private gathering', 'Interior décor', 'Something else'] },
+        { name: 'type', label: 'Type of event', type: 'select', placeholder: 'Choose one', options: ['Corporate event', 'Wedding', 'Anniversary or engagement', 'VIP dinner or gala', 'Baptism', 'Convocation', 'Funeral or memorial', 'Interior décor', 'Something else'] },
         { name: 'date', label: 'Event date', type: 'date' },
         { name: 'guests', label: 'Approx. guests', type: 'number' },
         { name: 'venue', label: 'Venue or city', type: 'text' },
@@ -436,9 +450,75 @@ const NOT_FOUND = {
   ],
 };
 
+const SERVICES = {
+  meta: {
+    title: 'Services',
+    seoTitle: 'Event & Interior Décor Services — KOMOREBI',
+    seoDescription: 'Elite décor for corporate events, weddings, anniversaries, VIP dinners, baptisms, convocations, funerals and interiors.',
+  },
+  sections: [
+    section('sv-hero', 'pageHero', {
+      variant: 'dark',
+      eyebrow: 'Our services',
+      title: 'Elite décor for every occasion.',
+      lead: 'From corporate events and weddings to baptisms, convocations and memorials, we design and install décor that is personal, polished and made for the moment.',
+      showChips: true,
+    }),
+    section('sv-grid', 'cardGrid', {
+      eyebrow: 'What we style',
+      title: 'Eight ways we create the room.',
+      link: btn('', '/'),
+      items: [
+        { num: '01', title: 'Corporate events', text: 'Launches, conferences and award nights styled around your brand.', to: '/corporate-events' },
+        { num: '02', title: 'Weddings', text: 'Ceremony and reception décor shaped around your story.', to: '/weddings' },
+        { num: '03', title: 'Anniversaries & engagements', text: 'Romantic styling that marks the milestone.', to: '/other-events' },
+        { num: '04', title: 'VIP dinners & galas', text: 'Refined table settings and venue styling for upscale evenings.', to: '/other-events' },
+        { num: '05', title: 'Baptism décor', text: 'Soft, reverent styling for christenings and receptions.', to: '/services#baptism' },
+        { num: '06', title: 'Convocation event décor', text: 'Photo backdrops, stage and reception styling for graduations.', to: '/services#convocation' },
+        { num: '07', title: 'Funeral & memorial décor', text: 'Dignified floral tributes, memory tables and calm settings.', to: '/services#funeral' },
+        { num: '08', title: 'Interior décor', text: 'Elevated styling for homes, offices and showrooms.', to: '/services#interior' },
+      ],
+    }),
+    section('sv-baptism', 'serviceBlock', {
+      anchor: 'baptism', num: '01', name: 'Baptism décor', chip: 'Baptism',
+      title: 'A gentle, beautiful setting for a christening.',
+      body: 'We style the ceremony space and the reception with soft florals, meaningful backdrops and elegant table details, so the day feels calm, warm and reverent.',
+      includes: ['Church or hall styling', 'Backdrop & floral arrangements', 'Cake & dessert table', 'Guest table décor'],
+      priceLabel: '', price: '', ctaLabel: 'Plan a baptism', ctaTo: CONTACT_URL,
+      image: pic('baptism-ceremony.jpg', 'Priest pouring water over a baby\'s head during a baptism, with a gold dish and ornate vestments'), flip: false,
+    }),
+    section('sv-convocation', 'serviceBlock', {
+      anchor: 'convocation', num: '02', name: 'Convocation event décor', chip: 'Convocation',
+      title: 'Celebrate the milestone in style.',
+      body: 'Graduation receptions, family dinners and institutional ceremonies styled with photo-ready backdrops, stage and table décor in your school or family colours.',
+      includes: ['Photo backdrops & arches', 'Stage & entrance styling', 'Reception tables & centrepieces', 'Custom colour themes'],
+      priceLabel: '', price: '', ctaLabel: 'Plan a convocation', ctaTo: CONTACT_URL,
+      image: pic('convocation-graduation.jpg', 'Graduation celebration with a Congratulations Graduate banner, gold, black and purple balloons and a dessert table'), flip: true,
+    }),
+    section('sv-funeral', 'serviceBlock', {
+      anchor: 'funeral', num: '03', name: 'Funeral & memorial décor', chip: 'Funeral',
+      title: 'Dignified décor for remembrance.',
+      body: 'With quiet care and respect, we style funeral services and memorial gatherings: floral tributes, memory tables and a calm setting that honours the person and comforts the family.',
+      includes: ['Floral tributes & standing arrangements', 'Memory table & photo display', 'Chapel or hall styling', 'Reception tablescapes'],
+      priceLabel: '', price: '', ctaLabel: 'Speak with us', ctaTo: CONTACT_URL,
+      image: pic('memorial-floral-arch.jpg', 'White arched backdrop with cascading white roses and greenery'), flip: false,
+    }),
+    section('sv-interior', 'serviceBlock', {
+      anchor: 'interior', num: '04', name: 'Interior décor', chip: 'Interior',
+      title: 'Spaces styled with intention.',
+      body: 'Elevated styling for homes, offices and showrooms: furnishings, florals and finishing touches chosen for your space and the way you live or work in it.',
+      includes: ['Space & palette consultation', 'Furnishings & soft styling', 'Florals & accents', 'Final installation'],
+      priceLabel: '', price: '', ctaLabel: 'Start a project', ctaTo: CONTACT_URL,
+      image: { ...pic('interior-decor.jpg', 'Dark panelled library interior with leather armchairs, bookshelves and a brass chandelier'), frame: 'gallery' }, flip: true,
+    }),
+    cta('sv-cta', 'Tell us about your occasion.', 'Share the date, venue and what you have in mind, and we will come back with first ideas.', 'Contact us'),
+  ],
+};
+
 export const PAGE_DEFAULTS = {
   home: HOME,
   'about-us': ABOUT,
+  services: SERVICES,
   'corporate-events': CORPORATE,
   weddings: WEDDINGS,
   'other-events': OTHER,

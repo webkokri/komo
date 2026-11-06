@@ -5,7 +5,7 @@ import { GLOBAL } from '../../cms/defaults.js';
 import { withSeoDefaults } from '../../cms/seo.js';
 import { useAuth } from '../auth.jsx';
 import { useGlobal } from '../data.js';
-import { Button, Card, CardHeader, Field, Input, LinkButton, Notice, PageHeader, Spinner, slugify } from '../ui.jsx';
+import { Button, Card, CardHeader, Field, Input, LinkButton, Notice, PageHeader, Select, Spinner, slugify } from '../ui.jsx';
 import PageSeoPanel from './PageSeoPanel.jsx';
 
 const LOCKED = ['home', '404'];
@@ -24,7 +24,7 @@ export default function PageSettings() {
       const e = p[slug] || null;
       setEntry(e);
       const meta = (e?.draft ?? e?.published)?.meta || {};
-      if (e) setForm({ title: meta.title || e.title || slug, seoTitle: meta.seoTitle || '', description: meta.seoDescription || '', slug, seo: meta.seo || {}, code: meta.code || {} });
+      if (e) setForm({ title: meta.title || e.title || slug, seoTitle: meta.seoTitle || '', description: meta.seoDescription || '', slug, theme: meta.theme || '', seo: meta.seo || {}, code: meta.code || {} });
     }).catch((err) => setState((s) => ({ ...s, error: err.message })));
   }, [slug]);
 
@@ -44,12 +44,12 @@ export default function PageSettings() {
     const newSlug = slugify(form.slug) || slug;
     try {
       if (published) {
-        await updatePageMeta(slug, { title: form.title.trim(), seoTitle: form.seoTitle, description: form.description, seo: form.seo, ...(isAdmin && { code: form.code }), newSlug: LOCKED.includes(slug) ? undefined : newSlug });
+        await updatePageMeta(slug, { title: form.title.trim(), seoTitle: form.seoTitle, description: form.description, theme: form.theme, seo: form.seo, ...(isAdmin && { code: form.code }), newSlug: LOCKED.includes(slug) ? undefined : newSlug });
       }
       const target = published && !LOCKED.includes(slug) ? newSlug : slug;
       if (entry.draft || !published) {
         const base = entry.draft ?? { sections: [] };
-        await saveDraft(target, { ...base, meta: { ...base.meta, title: form.title.trim(), seoTitle: form.seoTitle, seoDescription: form.description, seo: form.seo, ...(isAdmin && { code: form.code }) } });
+        await saveDraft(target, { ...base, meta: { ...base.meta, title: form.title.trim(), seoTitle: form.seoTitle, seoDescription: form.description, theme: form.theme || undefined, seo: form.seo, ...(isAdmin && { code: form.code }) } });
       }
       setState({ busy: false, error: '', saved: true });
       if (target !== slug) navigate(`/pages/${target}`, { replace: true });
@@ -73,6 +73,9 @@ export default function PageSettings() {
             <Field label="Page name"><Input required value={form.title} onChange={set('title')} /></Field>
             <Field label="Address" help={LOCKED.includes(slug) ? 'This page keeps its address.' : published ? `Visitors reach it at /${slugify(form.slug)}` : 'Publish the page first to change its address.'}>
               <Input value={form.slug} disabled={LOCKED.includes(slug) || !published} onChange={set('slug')} />
+            </Field>
+            <Field label="Animation style" help="Floral: blooms, leaves and soft fades. Corporate: sharp lines, grids and slide-in motion.">
+              <Select value={form.theme || ''} onChange={(e) => setForm({ ...form, theme: e.target.value })}><option value="">Floral (default)</option><option value="corporate">Corporate</option></Select>
             </Field>
           </div>
         </Card>
