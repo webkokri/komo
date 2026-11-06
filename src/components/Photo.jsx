@@ -1,4 +1,5 @@
 import { motion } from 'framer-motion';
+import DecorFrame from './DecorFrame.jsx';
 
 /**
  * Image slot with a curtain-style reveal on scroll.
@@ -14,6 +15,7 @@ export default function Photo({
   className = '',
   style,
   onEdit,
+  decor = true,
   children,
 }) {
   const toneClass = tone === 'dark' ? 'photo--dark' : tone === 'sand' ? 'photo--sand' : '';
@@ -36,6 +38,7 @@ export default function Photo({
         {src ? <img src={src} alt={alt} loading="lazy" decoding="async" /> : null}
         {children}
       </motion.div>
+      {src && decor ? <DecorFrame inset={12} delay={1.1} /> : null}
       {!src && label ? <span className="photo__label">{label}</span> : null}
       {onEdit ? (
         <button type="button" className="photo__edit cms-ui" onClick={onEdit}>

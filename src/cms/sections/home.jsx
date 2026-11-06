@@ -1,6 +1,7 @@
 import { useEffect, useId, useRef, useState } from 'react';
 import { AnimatePresence, motion, useReducedMotion, useScroll, useTransform } from 'framer-motion';
 import DappledLight from '../../components/DappledLight.jsx';
+import DecorFrame from '../../components/DecorFrame.jsx';
 import { Arrow, Quote } from '../../components/Icons.jsx';
 import { EASE, Item, Reveal, Stagger } from '../../components/motion.jsx';
 import { Btn, CmsPhoto, Lnk, Txt } from '../fields.jsx';
@@ -17,6 +18,13 @@ function HeroSlides({ base, props: p }) {
   const slides = p.slides;
   const [i, setI] = useState(0);
   const [paused, setPaused] = useState(false);
+  const [narrow, setNarrow] = useState(() => window.matchMedia('(max-width: 760px)').matches);
+  useEffect(() => {
+    const mq = window.matchMedia('(max-width: 760px)');
+    const on = () => setNarrow(mq.matches);
+    mq.addEventListener('change', on);
+    return () => mq.removeEventListener('change', on);
+  }, []);
   const idx = Math.min(i, slides.length - 1);
   const img = get(`${base}.slides.${idx}.image`) || {};
   const nextImg = get(`${base}.slides.${(idx + 1) % slides.length}.image`) || {};
@@ -38,7 +46,7 @@ function HeroSlides({ base, props: p }) {
       onFocus={() => setPaused(true)}
       onBlur={() => setPaused(false)}
     >
-      <span className="hero-card__frame" aria-hidden="true" />
+      <DecorFrame className="hero-card__frame" inset={-16} radii={narrow ? [136, 42, 42, 42] : [236, 50, 50, 50]} corners={['tr', 'br', 'bl']} delay={0.6} replayKey={idx} />
       <span className="hero-card__glow" aria-hidden="true" />
       <span className="hero-card__dots" aria-hidden="true" />
       <div className="hero-slides">
