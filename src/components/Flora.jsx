@@ -2,7 +2,8 @@
 // baked from the vector source in FloraArt.jsx so the browser only moves flat pictures (cheap) instead of painting hundreds of shapes.
 const MIRROR = { tl: 'none', tr: 'scaleX(-1)', br: 'scale(-1,-1)', bl: 'scaleY(-1)' };
 const ORIGIN = { tl: '0 0', tr: '100% 0', br: '100% 100%', bl: '0 100%' };
-const LAYERS = [['/decor/flora-1.png', 0], ['/decor/flora-2.png', 0.5], ['/decor/flora-3.png', 1]];
+const V = '3'; // bump when the baked art changes (the server caches images for a year)
+const LAYERS = [[`/decor/flora-1.png?v=${V}`, 0], [`/decor/flora-2.png?v=${V}`, 0.5], [`/decor/flora-3.png?v=${V}`, 1]];
 
 /** A bouquet for a frame or section corner. Layers bloom in turn (CSS) once `on`, then the bouquet sways. */
 export default function Flora({ corner = 'tl', size = 120, offset = 0, on = true, delay = 0, className = '' }) {
@@ -18,12 +19,12 @@ export default function Flora({ corner = 'tl', size = 120, offset = 0, on = true
 
 /** A tiny blossom image used by the frame garlands (five colours, public/decor/blossom-0..4.png). */
 export function GarlandBlossom({ index = 0, size = 18 }) {
-  return <img src={`/decor/blossom-${index % 5}.png`} alt="" width={size} height={size} decoding="async" style={{ display: 'block' }} />;
+  return <img src={`/decor/blossom-${index % 5}.png?v=${V}`} alt="" width={size} height={size} decoding="async" style={{ display: 'block' }} />;
 }
 
 // Small inline blossom for the footer vine and the ribbon.
 const PETAL = (n, r, rx, ry, fill) => Array.from({ length: n }, (_, i) => <ellipse key={i} cx="0" cy={-r} rx={rx} ry={ry} fill={fill} transform={`rotate(${(i * 360) / n})`} />);
-export function Blossom({ fill = '#E8628A', centre = '#F4C650', size = 18, className = '', x, y }) {
+export function Blossom({ fill = '#D4A93C', centre = '#FFF6D6', size = 18, className = '', x, y }) {
   return (
     <svg viewBox="-12 -12 24 24" width={size} height={size} x={x} y={y} className={className} aria-hidden="true">
       {PETAL(5, 6, 4.6, 6.4, fill)}
@@ -31,4 +32,4 @@ export function Blossom({ fill = '#E8628A', centre = '#F4C650', size = 18, class
     </svg>
   );
 }
-export const BLOSSOM_COLOURS = ['#E8628A', '#F28A2E', '#4C6EA8', '#8E6CC4', '#F7D154'];
+export const BLOSSOM_COLOURS = ['#D4A93C', '#B9C1CA', '#5B8A3A', '#F3DE94', '#E3E7EB'];
