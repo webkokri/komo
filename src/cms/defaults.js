@@ -21,20 +21,20 @@ export const GLOBAL = {
       { label: 'About Us', to: '/about-us' },
       { label: 'Corporate Events', to: '/corporate-events' },
       { label: 'Weddings', to: '/weddings' },
-      { label: 'Other Events', to: '/other-events' },
+      { label: 'Elite Events', to: '/other-events' },
       { label: 'Contact Us', to: CONTACT_URL },
     ],
     cta: btn('Book now', CONTACT_URL),
   },
   footer: {
-    tagline: 'Elegant, luxury party décor that turns every celebration into a beautifully styled, unforgettable experience.',
+    tagline: 'Elite décor for weddings, corporate events and luxury private occasions, designed and installed with care.',
     columns: [
       {
         title: 'Events',
         links: [
           { label: 'Corporate events', to: '/corporate-events' },
           { label: 'Weddings', to: '/weddings' },
-          { label: 'Other events', to: '/other-events' },
+          { label: 'Elite events', to: '/other-events' },
         ],
       },
       {
@@ -67,7 +67,7 @@ export const GLOBAL = {
     siteUrl: 'https://komorebiinteriors.ca',
     siteName: 'Komorebi Interiors',
     titleTemplate: '%s — Komorebi Interiors',
-    defaultDescription: 'Premium décor, backdrops, florals and balloon styling for weddings, birthdays, corporate events and private celebrations.',
+    defaultDescription: 'Elite event and interior décor: backdrops, florals and full venue styling for weddings, corporate events and luxury private occasions.',
     ogImage: '/uploads/hero-wedding-ceremony.jpg',
     twitter: '',
     locale: 'en_CA',
@@ -89,20 +89,21 @@ export const GLOBAL = {
       serviceAreas: ['Toronto', 'Greater Toronto Area'],
       openingHours: 'Mo-Fr 10:00-18:00',
       languages: 'English',
-      knowsAbout: 'event décor, wedding décor, corporate event styling, balloon styling, floral design, backdrops',
+      knowsAbout: 'event décor, interior décor, wedding décor, corporate event styling, floral design, backdrops, tablescapes',
       sameAs: '',
       services: [
         { name: 'Corporate event décor', description: 'Conferences, product launches and award nights styled to reflect your brand.' },
         { name: 'Wedding décor', description: 'Ceremony and reception styling, florals, arches and tablescapes.' },
-        { name: 'Birthday and private party décor', description: 'Backdrops, balloons, cake tables and hall decoration for birthdays, showers and anniversaries.' },
+        { name: 'Anniversary and engagement décor', description: 'Romantic styling for milestone celebrations and private gatherings.' },
         { name: 'VIP dinners and galas', description: 'Table settings and venue styling for upscale evenings.' },
+        { name: 'Interior décor', description: 'Elevated styling for homes, offices and showrooms: furnishings, florals and finishing touches.' },
       ],
     },
     ai: {
-      summary: 'Komorebi Interiors is an elite event décor studio. We design and install backdrops, florals, balloon styling and full venue décor for weddings, birthdays, corporate events and private celebrations.',
+      summary: 'Komorebi Interiors is an elite event décor studio. We design and install backdrops, florals and full venue décor for weddings, corporate events and luxury private occasions, and style interiors for homes, offices and showrooms.',
       facts: [
         'Komorebi (木漏れ日) is a Japanese word for sunlight filtering through leaves.',
-        'Services: corporate events, weddings, birthdays, baby showers, anniversaries, VIP dinners and gala events.',
+        'Services: elite event décor (corporate events, weddings, anniversaries, engagements, VIP dinners and galas) and interior décor.',
         'Every setup is customised to the occasion, venue and client; designs are never copied from a catalogue.',
       ],
       bots: Object.fromEntries(['GPTBot', 'OAI-SearchBot', 'ChatGPT-User', 'ClaudeBot', 'Claude-SearchBot', 'Claude-User', 'PerplexityBot', 'Perplexity-User', 'Google-Extended', 'Applebot-Extended', 'Meta-ExternalAgent', 'Amazonbot', 'CCBot', 'Bytespider'].map((n) => [n, 'allow'])),
@@ -119,23 +120,22 @@ const HOME = {
   meta: {
     title: 'Home',
     seoTitle: 'KOMOREBI — Elite Décor Studio',
-    seoDescription: 'Premium décor, backdrops, florals and balloon styling for weddings, birthdays, corporate events and private celebrations.',
+    seoDescription: 'Elite event and interior décor: backdrops, florals and full venue styling for weddings, corporate events and luxury private occasions.',
   },
   sections: [
     section('home-hero', 'hero', {
       eyebrow: 'Elite décor studio',
       title: 'Creating extraordinary events, one detail at a time.',
-      lead: 'Premium décor, backdrops, florals and balloon styling, designed around you and installed with care for weddings, birthdays, corporate events and private parties.',
+      lead: 'Premium décor, backdrops and florals, designed around you and installed with care for weddings, corporate events and luxury private occasions.',
       primary: btn('Plan your event', CONTACT_URL),
       secondary: btn('See wedding décor', '/weddings'),
       image: pic('hero-wedding-ceremony.jpg', 'Wedding ceremony styled with florals and an arch'),
       slides: [
         { title: 'Corporate events', text: 'Conferences, launches and award nights styled to leave a lasting impression.', to: '/corporate-events', image: pic('conference-hall.jpg', 'Conference hall set for a corporate event') },
         { title: 'Wedding events', text: 'Ceremony and reception décor shaped around your story.', to: '/weddings', image: pic('hero-wedding-ceremony.jpg', 'Wedding ceremony styled with florals and an arch') },
-        { title: 'Birthday celebrations', text: 'Themes, backdrops and balloons for birthdays of every age.', to: '/other-events', image: pic('birthday-event.jpeg', 'Birthday celebration with themed décor') },
-        { title: 'Baby showers', text: 'Soft, themed styling for welcoming a little one.', to: '/other-events', image: pic('baby-shower-backdrop.webp', 'Baby shower backdrop in pastel blue and pink') },
         { title: 'Anniversaries & engagements', text: 'Romantic styling that marks the milestone.', to: '/other-events', image: pic('anniversary.webp', 'Anniversary celebration with romantic styling') },
-        { title: 'VIP dinners & galas', text: 'Refined table settings and venue styling for upscale evenings.', to: '/other-events', image: pic('vip-dinner.jpg', 'VIP lunch table styled for an exclusive dinner') },
+        { title: 'VIP dinners', text: 'Refined table settings and styling for exclusive dining.', to: '/other-events', image: pic('vip-dinner.jpg', 'VIP lunch table styled for an exclusive dinner') },
+        { title: 'Gala & cocktail evenings', text: 'Venue styling for upscale evenings and private receptions.', to: '/other-events', image: pic('gala-cocktail.webp', 'Gala and cocktail event venue styling') },
       ],
       dappled: true,
     }),
@@ -143,11 +143,11 @@ const HOME = {
       image: pic('floral-centerpieces-candles.jpg', 'Floral centrepieces with lit candles on a reception table'),
       kanji: '木漏れ日',
       title: 'Why Komorebi?',
-      text: 'Every event has its own story, so every setup we create is customised. From weddings and birthdays to baby showers, corporate events and private parties, we shape the colours, textures and light around the people in the room.',
+      text: 'Every event has its own story, so every setup we create is customised. From weddings and anniversaries to VIP dinners and corporate events, we shape the colours, textures and light around the people in the room.',
       principles: [
         { title: 'Designed for you.', text: 'Concepts built around your occasion, taste and venue, never copied from a catalogue.' },
-        { title: 'Full-service styling.', text: 'Backdrops, florals, balloons, lighting and tablescapes from one team.' },
-        { title: 'Care in every detail.', text: 'We plan, install and finish each element so the room feels complete.' },
+        { title: 'Elite styling, end to end.', text: 'Backdrops, florals and tablescapes from one design team.' },
+        { title: 'Care in every detail.', text: 'We design, install and finish each element so the room feels complete.' },
       ],
       link: btn('About us', '/about-us'),
     }),
@@ -156,20 +156,21 @@ const HOME = {
       title: 'Creating delight for you.',
       link: btn('All events', '/other-events'),
       items: [
-        { num: '01', title: 'Corporate events', text: 'Conferences, launches and award nights styled to leave a lasting impression on your brand and guests.', to: '/corporate-events' },
-        { num: '02', title: 'Wedding events', text: 'Ceremony and reception décor shaped around your story, from the first look to the last dance.', to: '/weddings' },
-        { num: '03', title: 'Social & luxury private events', text: 'Anniversaries, engagements, showers and VIP dinners with a refined, personal finish.', to: '/other-events' },
+        { num: '01', title: 'Corporate event décor', text: 'Conferences, launches and award nights styled to leave a lasting impression on your brand and guests.', to: '/corporate-events' },
+        { num: '02', title: 'Wedding décor', text: 'Ceremony and reception décor shaped around your story, from the first look to the last dance.', to: '/weddings' },
+        { num: '03', title: 'Elite private event décor', text: 'Anniversaries, engagements, VIP dinners and galas with a refined, personal finish.', to: '/other-events' },
+        { num: '04', title: 'Interior décor', text: 'Elevated styling for homes, offices and showrooms: furnishings, florals and finishing touches chosen for your space.', to: CONTACT_URL },
       ],
     }),
-    section('home-birthday', 'featureGrid', {
+    section('home-signature', 'featureGrid', {
       tone: 'dark',
-      eyebrow: 'Birthday décor',
-      title: 'Unforgettable birthday party décor.',
+      eyebrow: 'Elite event décor',
+      title: 'Signature décor for every elite occasion.',
       items: [
-        { title: 'Birthday cake', text: 'A styled cake table that becomes the centrepiece of the celebration.' },
-        { title: 'Hall décor', text: 'Backdrops, balloons and florals that turn any hall into the party you imagined.' },
-        { title: 'Show programs', text: 'Sound, lighting and stage moments planned alongside the décor for kids, teens and adults.' },
-        { title: 'Guest gifts', text: 'Thoughtful keepsakes and gift tables that send everyone home smiling.' },
+        { title: 'Backdrops & arches', text: 'Custom-designed backdrops and arches that frame the moments everyone photographs.' },
+        { title: 'Floral design', text: 'Arrangements and installations in your palette, from understated to dramatic.' },
+        { title: 'Tablescapes', text: 'Table settings and centrepieces that make the dining room feel complete.' },
+        { title: 'Venue transformation', text: 'Full styling that turns an ordinary hall into the occasion you imagined.' },
       ],
     }),
     section('home-begin', 'cardGrid', {
@@ -177,10 +178,10 @@ const HOME = {
       title: 'Décor experiences for every occasion.',
       link: btn('Start planning', CONTACT_URL),
       items: [
-        { num: '01', title: 'Birthday party décor', text: 'Playful or polished setups for every age.', to: '/other-events' },
+        { num: '01', title: 'Gala & VIP dinner décor', text: 'Refined styling for exclusive evenings.', to: '/other-events' },
         { num: '02', title: 'Wedding decorations', text: 'Elegant styling for ceremony and reception.', to: '/weddings' },
         { num: '03', title: 'Hall decoration', text: 'Full venue transformations, from entrance to dance floor.', to: '/corporate-events' },
-        { num: '04', title: 'Sound & lighting', text: 'Atmosphere that finishes the room.', to: CONTACT_URL },
+        { num: '04', title: 'Florals & tablescapes', text: 'Arrangements and table styling that finish the room.', to: CONTACT_URL },
       ],
     }),
     section('home-testimonial', 'testimonial', {
@@ -212,7 +213,7 @@ const ABOUT = {
       kanji: '木漏れ日',
       paragraphs: [
         'Komorebi is the Japanese word for sunlight filtering through leaves, the shifting pattern of light and shadow you find beneath a tree. It describes what we aim for in every room: warmth, softness and a sense of calm.',
-        'We work with small gatherings and large celebrations alike, including birthdays, weddings, corporate events and special occasions. Each one gets a theme that reflects the people it is for.',
+        'We work with small gatherings and large celebrations alike, including weddings, corporate events and luxury private occasions. Each one gets a theme that reflects the people it is for.',
       ],
     }),
     section('ab-band', 'imageBand', { image: pic('sunlight-through-forest.jpg', 'Morning sunlight filtering through forest leaves'), height: 380 }),
@@ -245,12 +246,12 @@ const CORPORATE = {
     }),
     section('co-offer', 'featureGrid', {
       tone: 'light',
-      eyebrow: 'Event planning & décor',
+      eyebrow: 'Corporate event décor',
       title: 'Creating extraordinary events with elegant designs.',
       items: [
-        { title: 'Complete planning', text: 'Coordination from concept through execution, so your event runs smoothly and stress-free.' },
-        { title: 'Event décor', text: 'Themed décor that makes your venue look sophisticated and memorable.' },
-        { title: 'Custom experiences', text: 'Event concepts tailored to your vision, brand and audience.' },
+        { title: 'Brand-led design', text: 'Décor concepts that reflect your brand, from the entrance and stage to every table.' },
+        { title: 'Venue styling', text: 'Themed décor that makes your venue look sophisticated and memorable.' },
+        { title: 'Installation & finish', text: 'Our team installs and finishes every element on site, so the room is ready when guests arrive.' },
       ],
     }),
     section('co-intro', 'textBlock', {
@@ -258,7 +259,7 @@ const CORPORATE = {
       align: 'left',
       eyebrow: 'Elevating corporate experiences with style',
       title: 'We design and transform corporate events.',
-      body: 'Komorebi delivers sophisticated corporate events that strengthen your brand and engage your audience. We style conferences, product launches, award ceremonies, corporate celebrations and business gatherings, pairing creative design with careful planning.',
+      body: 'Komorebi delivers sophisticated corporate events that strengthen your brand and engage your audience. We style conferences, product launches, award ceremonies, corporate celebrations and business gatherings, pairing creative design with careful installation.',
       button: btn('', '/'),
     }),
     section('co-launch', 'serviceBlock', {
@@ -272,8 +273,8 @@ const CORPORATE = {
     section('co-conf', 'serviceBlock', {
       anchor: 'conferences', num: '02', name: 'Conferences & award ceremonies', chip: 'Conferences',
       title: 'Rooms that keep an audience engaged.',
-      body: 'From keynote stages to networking lounges and gala dinners, we design the layout, lighting and décor so your programme flows and your guests feel looked after.',
-      includes: ['Stage & backdrop design', 'Lounge & networking zones', 'Table styling & centrepieces', 'Signage & wayfinding'],
+      body: 'From keynote stages to networking lounges and gala dinners, we design the staging and décor so your programme flows and your guests feel looked after.',
+      includes: ['Stage & backdrop design', 'Lounge & networking zones', 'Table styling & centrepieces', 'Floral arrangements'],
       priceLabel: '', price: '', ctaLabel: 'Plan your event', ctaTo: CONTACT_URL,
       image: pic('conference-hall.jpg', 'Conference hall set for a corporate event'), flip: true,
     }),
@@ -284,15 +285,15 @@ const CORPORATE = {
 const WEDDINGS = {
   meta: {
     title: 'Weddings',
-    seoTitle: 'Wedding Décor & Planning — KOMOREBI',
-    seoDescription: 'Tailored wedding décor, ceremony styling and planning with personalised concepts and thoughtful details.',
+    seoTitle: 'Wedding Décor & Styling — KOMOREBI',
+    seoDescription: 'Tailored wedding décor and ceremony styling with personalised concepts and thoughtful details.',
   },
   sections: [
     section('wd-hero', 'pageHero', {
       variant: 'dark',
       eyebrow: 'Weddings',
       title: 'Your vision, our mission.',
-      lead: 'Wedding styling and planning shaped around your story.',
+      lead: 'Wedding décor and styling shaped around your story.',
       showChips: false,
     }),
     section('wd-intro', 'textBlock', {
@@ -300,7 +301,7 @@ const WEDDINGS = {
       align: 'left',
       eyebrow: 'Tailored elegance',
       title: 'Elevating weddings, creating unforgettable moments.',
-      body: 'We plan and style weddings with personalised concepts, elegant décor, seamless coordination and thoughtful details, so the day feels like you.',
+      body: 'We design and style weddings with personalised concepts, elegant décor and thoughtful details, so the day feels like you.',
       button: btn('Start planning', CONTACT_URL),
     }),
     section('wd-services', 'cardGrid', {
@@ -309,9 +310,9 @@ const WEDDINGS = {
       link: btn('', '/'),
       items: [
         { num: '01', title: 'Ceremony styling', text: 'Elegant ceremony décor designed around your wedding vision.', to: CONTACT_URL },
-        { num: '02', title: 'Bridal muse', text: 'Refined bridal styling with personalised finishing touches.', to: CONTACT_URL },
-        { num: '03', title: 'Rite of hearts', text: 'Thoughtful décor for the moments that matter most.', to: CONTACT_URL },
-        { num: '04', title: 'Cake moment', text: 'Cake displays styled to complement your wedding décor.', to: CONTACT_URL },
+        { num: '02', title: 'Reception & tablescapes', text: 'Table settings, centrepieces and venue styling for the celebration that follows.', to: CONTACT_URL },
+        { num: '03', title: 'Florals & arches', text: 'Arches, aisle florals and bouquets designed to match your palette.', to: CONTACT_URL },
+        { num: '04', title: 'Cake & dessert styling', text: 'Cake displays styled to complement your wedding décor.', to: CONTACT_URL },
       ],
     }),
     section('wd-band', 'imageBand', { image: pic('royal-wedding-decor.jpg', 'Royal-style wedding décor'), height: 420 }),
@@ -320,7 +321,7 @@ const WEDDINGS = {
       align: 'left',
       eyebrow: 'Our story',
       title: 'Beautiful moments, thoughtfully created.',
-      body: "We turn a couple's dream into a planned celebration, with experiences designed around you, real passion for design and planning that feels effortless.",
+      body: "We turn a couple's dream into a beautifully styled celebration, with décor designed around you, real passion for design and an installation that feels effortless.",
       button: btn('About us', '/about-us'),
     }),
     section('wd-love', 'textBlock', {
@@ -328,7 +329,7 @@ const WEDDINGS = {
       align: 'center',
       eyebrow: 'Weddings',
       title: 'Love meets celebration.',
-      body: 'We bring your wedding vision to life through décor, styling and planning, from the first idea to the final detail.',
+      body: 'We bring your wedding vision to life through décor and styling, from the first idea to the final detail.',
       button: btn('Contact us', CONTACT_URL),
     }),
   ],
@@ -336,14 +337,14 @@ const WEDDINGS = {
 
 const OTHER = {
   meta: {
-    title: 'Other Events',
-    seoTitle: 'Private & Social Event Décor — KOMOREBI',
-    seoDescription: 'Elegant décor for VIP dinners, birthdays, anniversaries, engagements, baby showers, private gatherings and galas.',
+    title: 'Elite Events',
+    seoTitle: 'Elite Event Décor — KOMOREBI',
+    seoDescription: 'Elegant décor for VIP dinners, anniversaries, engagements, private gatherings and galas.',
   },
   sections: [
     section('ev-hero', 'pageHero', {
       variant: 'dark',
-      eyebrow: 'Other events',
+      eyebrow: 'Elite events',
       title: 'Your VIP lifestyle starts here.',
       lead: 'Elegant décor for the occasions that deserve more than ordinary.',
       showChips: false,
@@ -353,18 +354,16 @@ const OTHER = {
       align: 'left',
       eyebrow: 'Elegant décor for every occasion',
       title: 'More ways to celebrate.',
-      body: 'From VIP dinners and anniversaries to birthdays, engagements and private parties, we style each event with personalised décor and careful planning.',
+      body: 'From VIP dinners and galas to anniversaries and engagements, we style each event with personalised décor and careful installation.',
       button: btn('Plan your occasion', CONTACT_URL),
     }),
     section('ev-grid', 'workGrid', {
       eyebrow: 'Occasions we style',
-      title: 'Six ways we help you celebrate.',
+      title: 'Four ways we style elite occasions.',
       link: btn('', '/'),
       items: [
         { cat: 'Dining', title: 'VIP lunch & dinner', meta: 'Table settings and styling for exclusive dining.', to: CONTACT_URL, image: pic('vip-dinner.jpg', 'VIP lunch table styled for an exclusive dinner') },
-        { cat: 'Party', title: 'Birthday celebrations', meta: 'Themes and décor for birthdays of every age.', to: CONTACT_URL, image: pic('birthday-event.jpeg', 'Birthday celebration with themed décor') },
         { cat: 'Milestone', title: 'Anniversaries & engagements', meta: 'Romantic styling that marks the milestone and the announcement.', to: CONTACT_URL, image: pic('anniversary.webp', 'Anniversary celebration with romantic styling') },
-        { cat: 'Party', title: 'Baby showers', meta: 'Themed décor for welcoming a little one.', to: CONTACT_URL, image: pic('baby-shower-backdrop.webp', 'Baby shower backdrop in pastel blue and pink') },
         { cat: 'Private', title: 'Private gatherings', meta: 'Décor for intimate and family occasions.', to: CONTACT_URL, image: pic('private-gathering.png', 'Intimate private gathering décor') },
         { cat: 'Gala', title: 'Gala & cocktail events', meta: 'Venue styling for upscale evenings.', to: CONTACT_URL, image: pic('gala-cocktail.webp', 'Gala and cocktail event venue styling') },
       ],
@@ -387,7 +386,7 @@ const CONTACT = {
   meta: {
     title: 'Contact Us',
     seoTitle: 'Contact — KOMOREBI Elite Décor Studio',
-    seoDescription: 'Get in touch with Komorebi to plan your wedding, corporate event or celebration.',
+    seoDescription: 'Get in touch with Komorebi for wedding, corporate event, celebration and interior décor styling.',
   },
   sections: [
     section('ct-hero', 'pageHero', {
@@ -409,7 +408,7 @@ const CONTACT = {
         { name: 'name', label: 'Full name', type: 'text', required: true, autocomplete: 'name' },
         { name: 'email', label: 'Email', type: 'email', required: true, autocomplete: 'email' },
         { name: 'phone', label: 'Phone (optional)', type: 'tel', autocomplete: 'tel' },
-        { name: 'type', label: 'Type of event', type: 'select', placeholder: 'Choose one', options: ['Corporate event', 'Wedding', 'Birthday', 'Anniversary or engagement', 'Baby shower', 'Private gathering or gala', 'Something else'] },
+        { name: 'type', label: 'Type of event', type: 'select', placeholder: 'Choose one', options: ['Corporate event', 'Wedding', 'Anniversary or engagement', 'VIP dinner or gala', 'Private gathering', 'Interior décor', 'Something else'] },
         { name: 'date', label: 'Event date', type: 'date' },
         { name: 'guests', label: 'Approx. guests', type: 'number' },
         { name: 'venue', label: 'Venue or city', type: 'text' },
