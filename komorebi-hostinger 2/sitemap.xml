@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
+  <url>
+    <loc>https://komorebiinteriors.ca/</loc>
+    <lastmod>2026-11-06</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+    <image:image><image:loc>https://komorebi-ten-pink.vercel.app/uploads/hero-wedding-ceremony.jpg</image:loc><image:title>Wedding ceremony styled with florals and an arch</image:title></image:image>
+    <image:image><image:loc>https://komorebi-ten-pink.vercel.app/uploads/conference-hall.jpg</image:loc><image:title>Conference hall set for a corporate event</image:title></image:image>
+    <image:image><image:loc>https://komorebi-ten-pink.vercel.app/uploads/anniversary.webp</image:loc><image:title>Anniversary celebration with romantic styling</image:title></image:image>
+    <image:image><image:loc>https://komorebi-ten-pink.vercel.app/uploads/vip-dinner.jpg</image:loc><image:title>VIP lunch table styled for an exclusive dinner</image:title></image:image>
+    <image:image><image:loc>https://komorebi-ten-pink.vercel.app/uploads/gala-cocktail.webp</image:loc><image:title>Gala and cocktail event venue styling</image:title></image:image>
+    <image:image><image:loc>https://komorebi-ten-pink.vercel.app/uploads/floral-centerpieces-candles.jpg</image:loc><image:title>Floral centrepieces with lit candles on a reception table</image:title></image:image>
+  </url>
+  <url>
+    <loc>https://komorebiinteriors.ca/about-us</loc>
+    <lastmod>2026-11-06</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <image:image><image:loc>https://komorebi-ten-pink.vercel.app/uploads/decorated-event-space.webp</image:loc><image:title>A decorated event space by Komorebi</image:title></image:image>
+    <image:image><image:loc>https://komorebi-ten-pink.vercel.app/uploads/sunlight-through-forest.jpg</image:loc><image:title>Morning sunlight filtering through forest leaves</image:title></image:image>
+  </url>
+  <url>
+    <loc>https://komorebiinteriors.ca/contact-us</loc>
+    <lastmod>2026-11-06</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://komorebiinteriors.ca/corporate-events</loc>
+    <lastmod>2026-11-06</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <image:image><image:loc>https://komorebi-ten-pink.vercel.app/uploads/product-launch-stage.jpg</image:loc><image:title>Large conference stage with branded lighting</image:title></image:image>
+    <image:image><image:loc>https://komorebi-ten-pink.vercel.app/uploads/conference-hall.jpg</image:loc><image:title>Conference hall set for a corporate event</image:title></image:image>
+  </url>
+  <url>
+    <loc>https://komorebiinteriors.ca/other-events</loc>
+    <lastmod>2026-11-06</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <image:image><image:loc>https://komorebi-ten-pink.vercel.app/uploads/vip-dinner.jpg</image:loc><image:title>VIP lunch table styled for an exclusive dinner</image:title></image:image>
+    <image:image><image:loc>https://komorebi-ten-pink.vercel.app/uploads/anniversary.webp</image:loc><image:title>Anniversary celebration with romantic styling</image:title></image:image>
+    <image:image><image:loc>https://komorebi-ten-pink.vercel.app/uploads/gala-cocktail.webp</image:loc><image:title>Gala and cocktail event venue styling</image:title></image:image>
+    <image:image><image:loc>https://komorebi-ten-pink.vercel.app/uploads/baptism-ceremony.jpg</image:loc><image:title>Priest pouring water over a baby's head during a baptism, with a gold dish and ornate vestments</image:title></image:image>
+    <image:image><image:loc>https://komorebi-ten-pink.vercel.app/uploads/convocation-graduation.jpg</image:loc><image:title>Graduation celebration with a Congratulations Graduate banner, gold, black and purple balloons and a dessert table</image:title></image:image>
+    <image:image><image:loc>https://komorebi-ten-pink.vercel.app/uploads/memorial-floral-arch.jpg</image:loc><image:title>White arched backdrop with cascading white roses and greenery</image:title></image:image>
+  </url>
+  <url>
+    <loc>https://komorebiinteriors.ca/services</loc>
+    <lastmod>2026-11-08</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <image:image><image:loc>https://komorebi-ten-pink.vercel.app/uploads/baptism-ceremony.jpg</image:loc><image:title>Priest pouring water over a baby's head during a baptism, with a gold dish and ornate vestments</image:title></image:image>
+    <image:image><image:loc>https://komorebi-ten-pink.vercel.app/uploads/convocation-graduation.jpg</image:loc><image:title>Graduation celebration with a Congratulations Graduate banner, gold, black and purple balloons and a dessert table</image:title></image:image>
+    <image:image><image:loc>https://komorebi-ten-pink.vercel.app/uploads/memorial-floral-arch.jpg</image:loc><image:title>White arched backdrop with cascading white roses and greenery</image:title></image:image>
+    <image:image><image:loc>https://komorebi-ten-pink.vercel.app/uploads/interior-decor.jpg</image:loc><image:title>Dark panelled library interior with leather armchairs, bookshelves and a brass chandelier</image:title></image:image>
+  </url>
+  <url>
+    <loc>https://komorebiinteriors.ca/weddings</loc>
+    <lastmod>2026-11-06</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <image:image><image:loc>https://komorebi-ten-pink.vercel.app/uploads/royal-wedding-decor.jpg</image:loc><image:title>Royal-style wedding décor</image:title></image:image>
+  </url>
+</urlset>

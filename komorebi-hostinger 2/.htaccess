@@ -1,0 +1,20 @@
+# Hostinger (Apache): single-page app routing for the site and the /admin app.
+RewriteEngine On
+RewriteBase /
+
+# Serve real files and folders as they are
+RewriteCond %{REQUEST_FILENAME} -f [OR]
+RewriteCond %{REQUEST_FILENAME} -d
+RewriteRule ^ - [L]
+
+# Studio CMS
+RewriteRule ^admin(/.*)?$ /admin.html [L]
+
+# Everything else is the public site
+RewriteRule ^ /index.html [L]
+
+<IfModule mod_headers.c>
+  <FilesMatch "\.(js|css|woff2?|svg|png|jpe?g|webp)$">
+    Header set Cache-Control "public, max-age=31536000, immutable"
+  </FilesMatch>
+</IfModule>

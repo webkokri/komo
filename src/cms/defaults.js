@@ -527,7 +527,7 @@ const SERVICES = {
       body: 'We design and install décor for government receptions, openings, summits and civic ceremonies: protocol-aware staging, flags and floral work, and refined finishing that reflects the occasion.',
       includes: ['Stage, podium & backdrop styling', 'Flag and emblem presentation', 'Floral and greenery arrangements', 'Reception & VIP area design'],
       priceLabel: '', price: '', ctaLabel: 'Plan a government event', ctaTo: CONTACT_URL,
-      image: ph('Specialty government events'), flip: false,
+      image: pic('government-ceremony.jpg', 'Officials and guests at an outdoor government ceremony with national flags and a podium'), flip: false,
     }),
     section('sv-first-responders', 'serviceBlock', {
       anchor: 'first-responders', num: '06', name: 'Military, police & first responder milestone events', chip: 'First responders',
@@ -535,7 +535,7 @@ const SERVICES = {
       body: 'Promotions, graduations, retirements and awards for military, police, fire and paramedic services, styled with pride, tradition and a polished finish for families and colleagues.',
       includes: ['Ceremony stage & entrance styling', 'Colours, crests and insignia displays', 'Reception tables & centrepieces', 'Photo and presentation areas'],
       priceLabel: '', price: '', ctaLabel: 'Plan a milestone event', ctaTo: CONTACT_URL,
-      image: ph('Military, police and first responder milestone events'), flip: true,
+      image: pic('first-responders-ceremony.jpg', 'Fire and emergency services graduates saluting in a line in front of a ladder truck, with helmets and turnout gear displayed'), flip: true,
     }),
     section('sv-veterans', 'serviceBlock', {
       anchor: 'veterans', num: '07', name: 'Veterans memorials & remembrance ceremonial events', chip: 'Remembrance',
@@ -543,7 +543,7 @@ const SERVICES = {
       body: 'We create respectful, moving settings for veterans memorials and remembrance ceremonies: wreath and floral tributes, memorial displays and calm, dignified staging for families and communities.',
       includes: ['Wreaths & floral tributes', 'Memorial and photo displays', 'Ceremony staging & seating', 'Reception and gathering spaces'],
       priceLabel: '', price: '', ctaLabel: 'Speak with us', ctaTo: CONTACT_URL,
-      image: ph('Veterans memorials and remembrance ceremonial events'), flip: false,
+      image: pic('veterans-memorial-wreaths.jpg', 'Memorial wreaths of white and red flowers with blue ribbons at a veterans memorial wall'), flip: false,
     }),
     cta('sv-cta', 'Tell us about your occasion.', 'Share the date, venue and what you have in mind, and we will come back with first ideas.', 'Contact us'),
   ],
