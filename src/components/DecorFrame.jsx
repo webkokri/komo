@@ -14,10 +14,10 @@ function framePath(w, h, radii) {
 
 // A small leafy sprig drawn for the top-left corner; the other corners mirror it. Leaves unfurl one after another.
 const BLOOMS = [
-  { x: 8, y: 33, s: 32, v: 'gold', r: -40 },
-  { x: 14, y: 21, s: 38, v: 'olive', r: -5 },
-  { x: 26, y: 12, s: 34, v: 'gold', r: 35 },
-  { x: 40, y: 8, s: 30, v: 'olive', r: 65 },
+  { x: 8, y: 33, s: 40, v: 'gold', r: -40 },
+  { x: 14, y: 21, s: 48, v: 'olive', r: -5 },
+  { x: 26, y: 12, s: 44, v: 'gold', r: 35 },
+  { x: 40, y: 8, s: 38, v: 'olive', r: 65 },
 ];
 const MIRROR = { tl: 'none', tr: 'scaleX(-1)', br: 'scale(-1,-1)', bl: 'scaleY(-1)' };
 
@@ -68,7 +68,7 @@ export default function DecorFrame({ inset = 12, radii = [2, 2, 2, 2], corners =
   const h = Math.max(0, box.h);
   const big = w >= 220 && h >= 170;
   const size = Math.max(34, Math.min(64, Math.min(w, h) / 6));
-  const floraSize = Math.max(76, Math.min(floraMax, Math.min(w, h) / 2.6));
+  const floraSize = Math.max(76, Math.min(floraMax, Math.min(w, h) / 2.1));
   const margin = floraSize * 0.82;
   const edge = (len) => Math.max(0, Math.floor((len - margin * 2) / 74));
   const spots = [];
@@ -119,7 +119,7 @@ export default function DecorFrame({ inset = 12, radii = [2, 2, 2, 2], corners =
       {big && corners.filter((c) => !flora.includes(c) && !floraSmall.includes(c)).map((c) => <Sprig key={`${c}-${replayKey}`} corner={c} size={size} offset={4} on={on} delay={delay + 1.1} reduce={reduce} />)}
       {big && spots.slice(0, 26).map((p, i) => (
         <span key={`g${i}`} className="decor-garland" style={{ left: p.x, top: p.y, '--d': `${delay + 1.5 + i * 0.045}s` }}>
-          <span>{i % 3 === 2 ? <i className="decor-garland__dot" /> : <GarlandBlossom index={i} size={i % 2 ? 24 : 30} />}</span>
+          <span>{i % 3 === 2 ? <i className="decor-garland__dot" /> : <GarlandBlossom index={i} size={i % 2 ? 32 : 40} />}</span>
         </span>
       ))}
       {big && floraSmall.map((c) => <Flora key={`s${c}`} corner={c} size={floraSize * 0.64} offset={floraOffset} on={on} delay={delay + 1.35} />)}

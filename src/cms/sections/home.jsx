@@ -46,7 +46,7 @@ function HeroSlides({ base, props: p }) {
       onFocus={() => setPaused(true)}
       onBlur={() => setPaused(false)}
     >
-      <DecorFrame className="hero-card__frame" inset={-16} radii={narrow ? [136, 42, 42, 42] : [236, 50, 50, 50]} corners={['tr', 'br', 'bl']} flora={['tr', 'br']} floraSmall={['bl']} floraMax={narrow ? 84 : 138} garland={!narrow} delay={0.6} replayKey={idx} />
+      <DecorFrame className="hero-card__frame" inset={-16} radii={narrow ? [136, 42, 42, 42] : [236, 50, 50, 50]} corners={['tr', 'br', 'bl']} flora={['tr', 'br']} floraSmall={['bl']} floraMax={narrow ? 96 : 150} garland={!narrow} delay={0.6} replayKey={idx} />
       <span className="hero-card__glow" aria-hidden="true" />
       <span className="hero-card__dots" aria-hidden="true" />
       <div className="hero-slides">

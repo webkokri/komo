@@ -2,7 +2,7 @@
 // baked from the vector source in FloraArt.jsx so the browser only moves flat pictures (cheap) instead of painting hundreds of shapes.
 const MIRROR = { tl: 'none', tr: 'scaleX(-1)', br: 'scale(-1,-1)', bl: 'scaleY(-1)' };
 const ORIGIN = { tl: '0 0', tr: '100% 0', br: '100% 100%', bl: '0 100%' };
-const V = '9'; // bump when the baked art changes (the server caches images for a year)
+const V = '10'; // bump when the baked art changes (the server caches images for a year)
 const LAYERS = [[`/decor/flora-1.png?v=${V}`, 0], [`/decor/flora-2.png?v=${V}`, 0.5], [`/decor/flora-3.png?v=${V}`, 1]];
 
 /** A bouquet for a frame or section corner. Layers bloom in turn (CSS) once `on`, then the bouquet sways. */

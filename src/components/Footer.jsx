@@ -14,14 +14,14 @@ function Vine() {
       {VINE.map((l, i) => (
         <g key={i} transform={`translate(${l.x} ${l.up ? 14 : 30})`}>
           <motion.g style={{ transformBox: 'fill-box', transformOrigin: 'center' }} initial={{ scale: 0, rotate: -90 }} whileInView={{ scale: 1, rotate: 0 }} viewport={{ once: true, margin: '-40px' }} transition={{ type: 'spring', stiffness: 130, damping: 11, delay: 0.5 + i * 0.13 }}>
-            <Blossom variant={i % 3 === 0 ? 'pair' : i % 3 === 1 ? 'gold' : 'olive'} size={34} x={-17} y={-17} />
+            <Blossom variant={i % 3 === 0 ? 'pair' : i % 3 === 1 ? 'gold' : 'olive'} size={46} x={-23} y={-23} />
           </motion.g>
         </g>
       ))}
       {VINE.filter((_, i) => i % 2 === 1).map((l, i) => (
         <g key={`b${i}`} transform={`translate(${l.x + 40} ${l.up ? 22 : 24})`}>
           <motion.g style={{ transformBox: 'fill-box', transformOrigin: 'center' }} initial={{ scale: 0, rotate: -60 }} whileInView={{ scale: 1, rotate: 0 }} viewport={{ once: true, margin: '-40px' }} transition={{ type: 'spring', stiffness: 130, damping: 10, delay: 1.1 + i * 0.2 }}>
-            <g className="flora__breath" style={{ animationDelay: `${i * 0.4}s` }}><Blossom variant={BLOSSOM_VARIANTS[i % 5]} size={36} x={-18} y={-18} /></g>
+            <g className="flora__breath" style={{ animationDelay: `${i * 0.4}s` }}><Blossom variant={BLOSSOM_VARIANTS[i % 5]} size={48} x={-24} y={-24} /></g>
           </motion.g>
         </g>
       ))}

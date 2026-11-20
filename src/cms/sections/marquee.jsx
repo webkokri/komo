@@ -11,7 +11,7 @@ export function Marquee({ base, props: p }) {
   const run = (copy) => items.map((it, i) => (
     <Fragment key={`${copy}-${i}`}>
       <span className="ribbon__item">{copy === 0 ? <Txt path={`${base}.items.${i}.text`} /> : it.text}</span>
-      <Blossom className="ribbon__star" variant={BLOSSOM_VARIANTS[i % 5]} size={42} />
+      <Blossom className="ribbon__star" variant={BLOSSOM_VARIANTS[i % 5]} size={54} />
     </Fragment>
   ));
   return (

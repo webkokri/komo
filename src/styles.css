@@ -583,7 +583,7 @@ body { background: radial-gradient(900px 520px at 100% -8%, rgba(212, 175, 55, .
 .ribbon:hover .ribbon__track { animation-play-state: paused; }
 .ribbon__row { display: flex; align-items: center; flex: none; }
 .ribbon__item { font-family: var(--font-display); font-size: clamp(22px, 3vw, 34px); padding: 0 30px; white-space: nowrap; }
-.ribbon__star { width: 16px; height: 16px; flex: none; color: var(--sun); animation: star-spin 9s linear infinite; }
+.ribbon__star { width: 34px; height: 34px; flex: none; color: var(--sun); animation: star-spin 9s linear infinite; }
 @keyframes ribbon-scroll { to { transform: translateX(-33.3333%); } }
 @keyframes star-spin { to { transform: rotate(360deg); } }
 .ribbon.is-static .ribbon__track { animation: none; width: auto; flex-wrap: wrap; padding: 0 var(--gutter); }

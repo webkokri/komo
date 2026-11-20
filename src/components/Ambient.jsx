@@ -52,17 +52,17 @@ export default function SectionDecor({ tone = 'light' }) {
       {tone === 'dark' ? (
         <>
           {SPOTS.map((p, i) => <span key={i} className="ambient__spot" style={{ left: `${p.x}%`, top: `${p.y}%`, width: p.s, height: p.s, animationDuration: `${p.d}s` }} />)}
-          <Flora corner="tr" size={150} offset={6} on={live} className="flora--edge" />
-          <Flora corner="bl" size={150} offset={6} on={live} delay={0.4} className="flora--edge flora--edge-br" />
+          <Flora corner="tr" size={170} offset={6} on={live} className="flora--edge" />
+          <Flora corner="bl" size={170} offset={6} on={live} delay={0.4} className="flora--edge flora--edge-br" />
           {live && <Petals />}
           {live && FALL.filter((_, i) => i % 3 !== 2).map((l, i) => (
-            <Blossom key={i} className="ambient__leaf ambient__flower" variant={i % 2 ? 'gold' : 'olive'} size={l.s + 30} style={{ left: `${l.x}%`, '--dx': `${l.dx}px`, '--r': `${l.r}deg`, animationDuration: `${l.d}s`, animationDelay: `${l.t}s` }} />
+            <Blossom key={i} className="ambient__leaf ambient__flower" variant={i % 2 ? 'gold' : 'olive'} size={l.s + 44} style={{ left: `${l.x}%`, '--dx': `${l.dx}px`, '--r': `${l.r}deg`, animationDuration: `${l.d}s`, animationDelay: `${l.t}s` }} />
           ))}
         </>
       ) : (
         <>
-          <Flora corner="tl" size={160} offset={6} on={live} className="flora--edge" />
-          <Flora corner="br" size={160} offset={6} on={live} delay={0.4} className="flora--edge flora--edge-br" />
+          <Flora corner="tl" size={180} offset={6} on={live} className="flora--edge" />
+          <Flora corner="br" size={180} offset={6} on={live} delay={0.4} className="flora--edge flora--edge-br" />
           {live && <Petals />}
         </>
       )}
