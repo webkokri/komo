@@ -14,10 +14,10 @@ function framePath(w, h, radii) {
 
 // A small leafy sprig drawn for the top-left corner; the other corners mirror it. Leaves unfurl one after another.
 const BLOOMS = [
-  { x: 8, y: 33, s: 22, v: 'gold', r: -40 },
-  { x: 14, y: 21, s: 26, v: 'olive', r: -5 },
-  { x: 26, y: 12, s: 24, v: 'gold', r: 35 },
-  { x: 40, y: 8, s: 20, v: 'olive', r: 65 },
+  { x: 8, y: 33, s: 32, v: 'gold', r: -40 },
+  { x: 14, y: 21, s: 38, v: 'olive', r: -5 },
+  { x: 26, y: 12, s: 34, v: 'gold', r: 35 },
+  { x: 40, y: 8, s: 30, v: 'olive', r: 65 },
 ];
 const MIRROR = { tl: 'none', tr: 'scaleX(-1)', br: 'scale(-1,-1)', bl: 'scaleY(-1)' };
 
@@ -119,7 +119,7 @@ export default function DecorFrame({ inset = 12, radii = [2, 2, 2, 2], corners =
       {big && corners.filter((c) => !flora.includes(c) && !floraSmall.includes(c)).map((c) => <Sprig key={`${c}-${replayKey}`} corner={c} size={size} offset={-6} on={on} delay={delay + 1.1} reduce={reduce} />)}
       {big && spots.slice(0, 26).map((p, i) => (
         <span key={`g${i}`} className="decor-garland" style={{ left: p.x, top: p.y, '--d': `${delay + 1.5 + i * 0.045}s` }}>
-          <span>{i % 3 === 2 ? <i className="decor-garland__dot" /> : <GarlandBlossom index={i} size={i % 2 ? 15 : 19} />}</span>
+          <span>{i % 3 === 2 ? <i className="decor-garland__dot" /> : <GarlandBlossom index={i} size={i % 2 ? 24 : 30} />}</span>
         </span>
       ))}
       {big && floraSmall.map((c) => <Flora key={`s${c}`} corner={c} size={floraSize * 0.64} offset={floraOffset} on={on} delay={delay + 1.35} />)}
