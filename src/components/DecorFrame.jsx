@@ -77,7 +77,7 @@ export default function DecorFrame({ inset = 12, radii = [2, 2, 2, 2], corners =
     for (let i = 0; i < nx; i += 1) { const x = margin + ((w - margin * 2) * (i + 0.5)) / nx; spots.push({ x, y: 0 }, { x, y: h }); }
     for (let i = 0; i < ny; i += 1) { const y = margin + ((h - margin * 2) * (i + 0.5)) / ny; spots.push({ x: 0, y }, { x: w, y }); }
   }
-  const floraOffset = 2;
+  const floraOffset = 0;
   const on = inView || !!reduce;
   const line = (d, inner) => (reduce ? { duration: 0 } : { duration: inner ? 1.7 : 1.5, delay: d, ease: EASE });
 
