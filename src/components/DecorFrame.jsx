@@ -77,7 +77,7 @@ export default function DecorFrame({ inset = 12, radii = [2, 2, 2, 2], corners =
     for (let i = 0; i < nx; i += 1) { const x = margin + ((w - margin * 2) * (i + 0.5)) / nx; spots.push({ x, y: 0 }, { x, y: h }); }
     for (let i = 0; i < ny; i += 1) { const y = margin + ((h - margin * 2) * (i + 0.5)) / ny; spots.push({ x: 0, y }, { x: w, y }); }
   }
-  const floraOffset = inset < 0 ? -10 : -8;
+  const floraOffset = 2;
   const on = inView || !!reduce;
   const line = (d, inner) => (reduce ? { duration: 0 } : { duration: inner ? 1.7 : 1.5, delay: d, ease: EASE });
 
@@ -116,7 +116,7 @@ export default function DecorFrame({ inset = 12, radii = [2, 2, 2, 2], corners =
           )}
         </svg>
       )}
-      {big && corners.filter((c) => !flora.includes(c) && !floraSmall.includes(c)).map((c) => <Sprig key={`${c}-${replayKey}`} corner={c} size={size} offset={-6} on={on} delay={delay + 1.1} reduce={reduce} />)}
+      {big && corners.filter((c) => !flora.includes(c) && !floraSmall.includes(c)).map((c) => <Sprig key={`${c}-${replayKey}`} corner={c} size={size} offset={4} on={on} delay={delay + 1.1} reduce={reduce} />)}
       {big && spots.slice(0, 26).map((p, i) => (
         <span key={`g${i}`} className="decor-garland" style={{ left: p.x, top: p.y, '--d': `${delay + 1.5 + i * 0.045}s` }}>
           <span>{i % 3 === 2 ? <i className="decor-garland__dot" /> : <GarlandBlossom index={i} size={i % 2 ? 24 : 30} />}</span>

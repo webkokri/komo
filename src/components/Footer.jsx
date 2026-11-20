@@ -9,12 +9,12 @@ const VINE = Array.from({ length: 14 }, (_, i) => ({ x: 60 + i * 80, up: i % 2 =
 /** A vine that grows along the top of the footer, leaf by leaf. */
 function Vine() {
   return (
-    <svg className="footer__vine" viewBox="0 0 1200 44" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
-      <motion.path d="M0 22 C100 6 180 38 300 22 S500 6 600 22 S800 38 900 22 S1100 6 1200 22" fill="none" stroke="var(--sun)" strokeWidth="1.4" strokeLinecap="round" initial={{ pathLength: 0 }} whileInView={{ pathLength: 1 }} viewport={{ once: true, margin: '-40px' }} transition={{ duration: 2.4, ease: [0.22, 1, 0.36, 1] }} />
+    <svg className="footer__vine" viewBox="0 0 1200 84" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+      <g transform="translate(0 20)"><motion.path d="M0 22 C100 6 180 38 300 22 S500 6 600 22 S800 38 900 22 S1100 6 1200 22" fill="none" stroke="var(--sun)" strokeWidth="1.4" strokeLinecap="round" initial={{ pathLength: 0 }} whileInView={{ pathLength: 1 }} viewport={{ once: true, margin: '-40px' }} transition={{ duration: 2.4, ease: [0.22, 1, 0.36, 1] }} />
       {VINE.map((l, i) => (
         <g key={i} transform={`translate(${l.x} ${l.up ? 14 : 30})`}>
           <motion.g style={{ transformBox: 'fill-box', transformOrigin: 'center' }} initial={{ scale: 0, rotate: -90 }} whileInView={{ scale: 1, rotate: 0 }} viewport={{ once: true, margin: '-40px' }} transition={{ type: 'spring', stiffness: 130, damping: 11, delay: 0.5 + i * 0.13 }}>
-            <Blossom variant={i % 2 ? 'gold' : 'olive'} size={34} x={-17} y={-17} />
+            <Blossom variant={i % 3 === 0 ? 'pair' : i % 3 === 1 ? 'gold' : 'olive'} size={34} x={-17} y={-17} />
           </motion.g>
         </g>
       ))}
@@ -25,6 +25,7 @@ function Vine() {
           </motion.g>
         </g>
       ))}
+    </g>
     </svg>
   );
 }
