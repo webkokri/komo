@@ -14,7 +14,7 @@ function Vine() {
       {VINE.map((l, i) => (
         <g key={i} transform={`translate(${l.x} ${l.up ? 14 : 30})`}>
           <motion.g style={{ transformBox: 'fill-box', transformOrigin: 'center' }} initial={{ scale: 0, rotate: -90 }} whileInView={{ scale: 1, rotate: 0 }} viewport={{ once: true, margin: '-40px' }} transition={{ type: 'spring', stiffness: 130, damping: 11, delay: 0.5 + i * 0.13 }}>
-            <Blossom fill={['#D4AF37', '#E6C875', '#F1E3A8'][i % 3]} centre="#6B7A32" size={15} x={-7.5} y={-7.5} />
+            <Blossom fill={['#566A2B', '#C9A24A', '#8E9B52'][i % 3]} centre="#E6C875" size={15} x={-7.5} y={-7.5} />
           </motion.g>
         </g>
       ))}

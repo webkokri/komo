@@ -12,12 +12,12 @@ function framePath(w, h, radii) {
   return `M${tl},0 H${w - tr} A${tr},${tr} 0 0 1 ${w},${tr} V${h - br} A${br},${br} 0 0 1 ${w - br},${h} H${bl} A${bl},${bl} 0 0 1 0,${h - bl} V${tl} A${tl},${tl} 0 0 1 ${tl},0 Z`;
 }
 
-// A small flowering sprig drawn for the top-left corner; the other corners mirror it. Blossoms open one after another.
+// A small leafy sprig drawn for the top-left corner; the other corners mirror it. Leaves unfurl one after another.
 const BLOOMS = [
-  { x: 6, y: 33, s: 11, c: '#E6C875' },
-  { x: 12, y: 20, s: 14, c: '#D4AF37' },
-  { x: 24, y: 11, s: 12, c: '#F1E3A8' },
-  { x: 38, y: 7, s: 10, c: '#D4AF37' },
+  { x: 6, y: 33, s: 11, c: '#C9A24A' },
+  { x: 12, y: 20, s: 14, c: '#566A2B' },
+  { x: 24, y: 11, s: 12, c: '#8E9B52' },
+  { x: 38, y: 7, s: 10, c: '#3F4E21' },
 ];
 const MIRROR = { tl: 'none', tr: 'scaleX(-1)', br: 'scale(-1,-1)', bl: 'scaleY(-1)' };
 
@@ -30,7 +30,7 @@ function Sprig({ corner, size, offset, on, delay, reduce }) {
       {BLOOMS.map((l, i) => (
         <g key={i} transform={`translate(${l.x} ${l.y})`}>
           <motion.g style={{ transformBox: 'fill-box', transformOrigin: 'center' }} initial={{ scale: 0, rotate: -120, opacity: 0 }} animate={{ scale: on ? 1 : 0, rotate: on ? 0 : -120, opacity: on ? 1 : 0 }} transition={reduce ? { duration: 0 } : { type: 'spring', stiffness: 120, damping: 11, delay: delay + 0.35 + i * 0.14 }}>
-            <Blossom fill={l.c} centre="#6B7A32" size={l.s} x={-l.s / 2} y={-l.s / 2} />
+            <Blossom fill={l.c} centre="#E6C875" size={l.s} x={-l.s / 2} y={-l.s / 2} />
           </motion.g>
         </g>
       ))}
@@ -45,7 +45,7 @@ const STARS = [
 ];
 
 /**
- * A frame that decorates itself: a gold line draws around the edge, flowering sprigs bloom into the corners
+ * A frame that decorates itself: a gold line draws around the edge, leafy sprigs unfurl into the corners
  * and small sparkles twinkle. Place inside a `position: relative` parent. `inset` can be negative to sit outside.
  * `radii` = [tl, tr, br, bl] (px). `replayKey` re-grows the ornaments (for slideshows).
  */
