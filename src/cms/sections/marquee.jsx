@@ -1,5 +1,5 @@
 import { Fragment } from 'react';
-import { BLOSSOM_COLOURS, Blossom } from '../../components/Flora.jsx';
+import { BLOSSOM_VARIANTS, Blossom } from '../../components/Flora.jsx';
 import { Txt } from '../fields.jsx';
 import { useCms } from '../store.jsx';
 
@@ -11,7 +11,7 @@ export function Marquee({ base, props: p }) {
   const run = (copy) => items.map((it, i) => (
     <Fragment key={`${copy}-${i}`}>
       <span className="ribbon__item">{copy === 0 ? <Txt path={`${base}.items.${i}.text`} /> : it.text}</span>
-      <Blossom className="ribbon__star" fill={BLOSSOM_COLOURS[i % 3]} size={22} />
+      <Blossom className="ribbon__star" variant={BLOSSOM_VARIANTS[i % 5]} size={30} />
     </Fragment>
   ));
   return (

@@ -14,10 +14,10 @@ function framePath(w, h, radii) {
 
 // A small leafy sprig drawn for the top-left corner; the other corners mirror it. Leaves unfurl one after another.
 const BLOOMS = [
-  { x: 6, y: 33, s: 11, c: '#C9A24A' },
-  { x: 12, y: 20, s: 14, c: '#566A2B' },
-  { x: 24, y: 11, s: 12, c: '#8E9B52' },
-  { x: 38, y: 7, s: 10, c: '#3F4E21' },
+  { x: 8, y: 33, s: 22, v: 'gold', r: -40 },
+  { x: 14, y: 21, s: 26, v: 'olive', r: -5 },
+  { x: 26, y: 12, s: 24, v: 'gold', r: 35 },
+  { x: 40, y: 8, s: 20, v: 'olive', r: 65 },
 ];
 const MIRROR = { tl: 'none', tr: 'scaleX(-1)', br: 'scale(-1,-1)', bl: 'scaleY(-1)' };
 
@@ -28,9 +28,9 @@ function Sprig({ corner, size, offset, on, delay, reduce }) {
     <svg className="decor-sprig" viewBox="0 0 60 60" width={size} height={size} style={{ ...pos, transform: MIRROR[corner] }} aria-hidden="true">
       <motion.path d="M5 44 C5 20 20 5 44 5" fill="none" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" initial={{ pathLength: 0 }} animate={{ pathLength: on ? 1 : 0 }} transition={t(0)} />
       {BLOOMS.map((l, i) => (
-        <g key={i} transform={`translate(${l.x} ${l.y})`}>
+        <g key={i} transform={`translate(${l.x} ${l.y}) rotate(${l.r})`}>
           <motion.g style={{ transformBox: 'fill-box', transformOrigin: 'center' }} initial={{ scale: 0, rotate: -120, opacity: 0 }} animate={{ scale: on ? 1 : 0, rotate: on ? 0 : -120, opacity: on ? 1 : 0 }} transition={reduce ? { duration: 0 } : { type: 'spring', stiffness: 120, damping: 11, delay: delay + 0.35 + i * 0.14 }}>
-            <Blossom fill={l.c} centre="#E6C875" size={l.s} x={-l.s / 2} y={-l.s / 2} />
+            <Blossom variant={l.v} size={l.s} x={-l.s / 2} y={-l.s} />
           </motion.g>
         </g>
       ))}

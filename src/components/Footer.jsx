@@ -2,7 +2,7 @@ import { Lnk, Txt } from '../cms/fields.jsx';
 import { useCms } from '../cms/store.jsx';
 import { Stagger, Item } from './motion.jsx';
 import { motion } from 'framer-motion';
-import { BLOSSOM_COLOURS, Blossom } from './Flora.jsx';
+import { BLOSSOM_VARIANTS, Blossom } from './Flora.jsx';
 
 const VINE = Array.from({ length: 14 }, (_, i) => ({ x: 60 + i * 80, up: i % 2 === 0 }));
 
@@ -14,14 +14,14 @@ function Vine() {
       {VINE.map((l, i) => (
         <g key={i} transform={`translate(${l.x} ${l.up ? 14 : 30})`}>
           <motion.g style={{ transformBox: 'fill-box', transformOrigin: 'center' }} initial={{ scale: 0, rotate: -90 }} whileInView={{ scale: 1, rotate: 0 }} viewport={{ once: true, margin: '-40px' }} transition={{ type: 'spring', stiffness: 130, damping: 11, delay: 0.5 + i * 0.13 }}>
-            <Blossom fill={['#566A2B', '#C9A24A', '#8E9B52'][i % 3]} centre="#E6C875" size={15} x={-7.5} y={-7.5} />
+            <Blossom variant={i % 2 ? 'gold' : 'olive'} size={22} x={-11} y={-11} />
           </motion.g>
         </g>
       ))}
       {VINE.filter((_, i) => i % 2 === 1).map((l, i) => (
         <g key={`b${i}`} transform={`translate(${l.x + 40} ${l.up ? 22 : 24})`}>
           <motion.g style={{ transformBox: 'fill-box', transformOrigin: 'center' }} initial={{ scale: 0, rotate: -60 }} whileInView={{ scale: 1, rotate: 0 }} viewport={{ once: true, margin: '-40px' }} transition={{ type: 'spring', stiffness: 130, damping: 10, delay: 1.1 + i * 0.2 }}>
-            <g className="flora__breath" style={{ animationDelay: `${i * 0.4}s` }}><Blossom fill={BLOSSOM_COLOURS[i % 3]} size={20} x={-10} y={-10} /></g>
+            <g className="flora__breath" style={{ animationDelay: `${i * 0.4}s` }}><Blossom variant={BLOSSOM_VARIANTS[i % 5]} size={26} x={-13} y={-13} /></g>
           </motion.g>
         </g>
       ))}

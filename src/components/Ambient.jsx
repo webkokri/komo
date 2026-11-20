@@ -56,7 +56,7 @@ export default function SectionDecor({ tone = 'light' }) {
           <Flora corner="bl" size={150} offset={-34} on={live} delay={0.4} className="flora--edge flora--edge-br" />
           {live && <Petals />}
           {live && FALL.filter((_, i) => i % 3 !== 2).map((l, i) => (
-            <Blossom key={i} className="ambient__leaf ambient__flower" fill={['#566A2B', '#C9A24A', '#8E9B52'][i % 3]} centre="#E6C875" size={l.s + 6} style={{ left: `${l.x}%`, '--dx': `${l.dx}px`, '--r': `${l.r}deg`, animationDuration: `${l.d}s`, animationDelay: `${l.t}s` }} />
+            <Blossom key={i} className="ambient__leaf ambient__flower" variant={i % 2 ? 'gold' : 'olive'} size={l.s + 14} style={{ left: `${l.x}%`, '--dx': `${l.dx}px`, '--r': `${l.r}deg`, animationDuration: `${l.d}s`, animationDelay: `${l.t}s` }} />
           ))}
         </>
       ) : (
