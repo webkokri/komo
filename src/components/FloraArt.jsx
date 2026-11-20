@@ -1,7 +1,7 @@
 // VECTOR SOURCE of the bouquet art. Not used at runtime: public/decor/flora-*.png are baked from this (render <Flora/> from this file in a
 // page and screenshot each .flora__layer with a transparent background; viewBox -10 -10 220 220). Edit here, then re-bake.
 const EASE = [0.22, 1, 0.36, 1];
-const C = { pink: '#D4A93C', pinkL: '#F3DE94', orange: '#B98A1E', orangeL: '#F7EBC4', blue: '#B9C1CA', blueL: '#E9EDF1', red: '#C9D0D8', leaf: '#4E7A3C', leafL: '#9FC27A', gold: '#F4C650', yellow: '#E9CB6B', violet: '#5B8A3A', violetL: '#A9CB84', swirl: '#D5DBE1', navy: '#8D97A1' };
+const C = { pink: '#D4AF37', pinkL: '#F3DE94', orange: '#B98A1E', orangeL: '#F7EBC4', blue: '#B9C1CA', blueL: '#E9EDF1', red: '#C9D0D8', leaf: '#4F5E26', leafL: '#9AA55C', gold: '#F4C650', yellow: '#E9CB6B', violet: '#6B7A32', violetL: '#B5BE7A', swirl: '#D5DBE1', navy: '#8D97A1' };
 const MIRROR = { tl: 'none', tr: 'scaleX(-1)', br: 'scale(-1,-1)', bl: 'scaleY(-1)' };
 const ORIGIN = { tl: '0 0', tr: '100% 0', br: '100% 100%', bl: '0 100%' };
 

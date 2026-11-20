@@ -1,9 +1,7 @@
 import { useRef } from 'react';
 import { useInView } from 'framer-motion';
 import { useTheme } from '../cms/theme.jsx';
-import Flora from './Flora.jsx';
-
-const LEAF = 'M0 0 C4 -6.5 12 -6.5 17 0 C12 6.5 4 6.5 0 0Z';
+import Flora, { Blossom } from './Flora.jsx';
 
 // Fixed "random" values so the layout is stable between renders.
 const FALL = [
@@ -26,18 +24,6 @@ function Petals() {
       <path d="M0 -7 C6 -4 6 4 0 7 C-6 4 -6 -4 0 -7Z" fill={l.c} />
     </svg>
   ));
-}
-
-function Branch({ className }) {
-  return (
-    <svg className={`ambient__branch ${className}`} viewBox="0 0 220 280" aria-hidden="true">
-      <path d="M0 0 C46 38 78 92 112 184" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
-      <path d="M52 52 C88 46 118 60 150 96" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" />
-      {[[22, 18, 36, 1.5], [44, 44, 62, 1.7], [66, 74, 86, 1.6], [88, 118, 96, 1.7], [104, 158, 110, 1.5], [70, 50, 12, 1.4], [108, 70, 28, 1.5], [136, 88, 40, 1.4]].map(([x, y, r, s], i) => (
-        <g key={i} transform={`translate(${x} ${y}) rotate(${r}) scale(${s})`}><path d={LEAF} fill="currentColor" /></g>
-      ))}
-    </svg>
-  );
 }
 
 /**
@@ -70,9 +56,7 @@ export default function SectionDecor({ tone = 'light' }) {
           <Flora corner="bl" size={150} offset={-34} on={live} delay={0.4} className="flora--edge flora--edge-br" />
           {live && <Petals />}
           {live && FALL.filter((_, i) => i % 3 !== 2).map((l, i) => (
-            <svg key={i} className="ambient__leaf" viewBox="-2 -8 22 16" style={{ left: `${l.x}%`, width: l.s, '--dx': `${l.dx}px`, '--r': `${l.r}deg`, animationDuration: `${l.d}s`, animationDelay: `${l.t}s` }}>
-              <path d={LEAF} fill={i % 3 === 0 ? 'var(--sun)' : '#9DB58F'} />
-            </svg>
+            <Blossom key={i} className="ambient__leaf ambient__flower" fill={['#D4AF37', '#E6C875', '#8A9A4A'][i % 3]} centre="#F4E7B0" size={l.s + 6} style={{ left: `${l.x}%`, '--dx': `${l.dx}px`, '--r': `${l.r}deg`, animationDuration: `${l.d}s`, animationDelay: `${l.t}s` }} />
           ))}
         </>
       ) : (

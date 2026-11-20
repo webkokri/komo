@@ -38,7 +38,7 @@ export default function CursorSparkle() {
       const now = performance.now();
       if (now - last < 42) return;
       last = now;
-      parts.push({ x: e.clientX, y: e.clientY, vx: (Math.random() - 0.5) * 1.4, vy: (Math.random() - 0.5) * 1.4 - 0.4, r: 3 + Math.random() * 3.5, rot: Math.random() * 3, t0: now, life: 650 + Math.random() * 350, c: Math.random() > 0.35 ? '#D9A441' : '#F3EFE6' });
+      parts.push({ x: e.clientX, y: e.clientY, vx: (Math.random() - 0.5) * 1.4, vy: (Math.random() - 0.5) * 1.4 - 0.4, r: 3 + Math.random() * 3.5, rot: Math.random() * 3, t0: now, life: 650 + Math.random() * 350, c: Math.random() > 0.35 ? '#D4AF37' : '#F1F0E0' });
       if (parts.length > 28) parts.shift();
       if (!raf) raf = requestAnimationFrame(frame);
     };

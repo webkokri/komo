@@ -3,7 +3,7 @@ import { THEME_VARS } from '../../cms/registry.js';
 import { Button, Card, CardHeader, Field, Input, PageHeader, Spinner, Textarea } from '../ui.jsx';
 import { useGlobal } from '../data.js';
 
-const DEFAULT_COLORS = { '--paper': '#F6F1E6', '--paper-2': '#EDE5D2', '--ink': '#1E2A1F', '--moss': '#4A6B3F', '--sun': '#D9A441' };
+const DEFAULT_COLORS = { '--paper': '#F1F0E0', '--paper-2': '#E4E4CB', '--ink': '#161D0F', '--moss': '#4A5B27', '--sun': '#D4AF37' };
 
 export default function SiteSettings() {
   const { doc, setDoc, save, error } = useGlobal();

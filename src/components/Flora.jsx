@@ -2,7 +2,7 @@
 // baked from the vector source in FloraArt.jsx so the browser only moves flat pictures (cheap) instead of painting hundreds of shapes.
 const MIRROR = { tl: 'none', tr: 'scaleX(-1)', br: 'scale(-1,-1)', bl: 'scaleY(-1)' };
 const ORIGIN = { tl: '0 0', tr: '100% 0', br: '100% 100%', bl: '0 100%' };
-const V = '3'; // bump when the baked art changes (the server caches images for a year)
+const V = '4'; // bump when the baked art changes (the server caches images for a year)
 const LAYERS = [[`/decor/flora-1.png?v=${V}`, 0], [`/decor/flora-2.png?v=${V}`, 0.5], [`/decor/flora-3.png?v=${V}`, 1]];
 
 /** A bouquet for a frame or section corner. Layers bloom in turn (CSS) once `on`, then the bouquet sways. */
@@ -24,12 +24,12 @@ export function GarlandBlossom({ index = 0, size = 18 }) {
 
 // Small inline blossom for the footer vine and the ribbon.
 const PETAL = (n, r, rx, ry, fill) => Array.from({ length: n }, (_, i) => <ellipse key={i} cx="0" cy={-r} rx={rx} ry={ry} fill={fill} transform={`rotate(${(i * 360) / n})`} />);
-export function Blossom({ fill = '#D4A93C', centre = '#FFF6D6', size = 18, className = '', x, y }) {
+export function Blossom({ fill = '#D4AF37', centre = '#FFF6D6', size = 18, className = '', x, y, style }) {
   return (
-    <svg viewBox="-12 -12 24 24" width={size} height={size} x={x} y={y} className={className} aria-hidden="true">
+    <svg viewBox="-12 -12 24 24" width={size} height={size} x={x} y={y} className={className} style={style} aria-hidden="true">
       {PETAL(5, 6, 4.6, 6.4, fill)}
       <circle r="2.6" fill={centre} />
     </svg>
   );
 }
-export const BLOSSOM_COLOURS = ['#D4A93C', '#B9C1CA', '#5B8A3A', '#F3DE94', '#E3E7EB'];
+export const BLOSSOM_COLOURS = ['#D4AF37', '#B9C1CA', '#6B7A32', '#F3DE94', '#E3E7EB'];
