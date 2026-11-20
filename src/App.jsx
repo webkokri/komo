@@ -4,6 +4,7 @@ import Header from './components/Header.jsx';
 import ScrollProgress from './components/ScrollProgress.jsx';
 import CursorSparkle from './components/CursorSparkle.jsx';
 import PerfGovernor from './components/PerfGovernor.jsx';
+import LeafReact from './components/LeafReact.jsx';
 import SmoothScroll, { scrollToTop } from './components/SmoothScroll.jsx';
 import PageView, { ThemeStyle } from './cms/PageView.jsx';
 import Editor from './cms/editor/Editor.jsx';
@@ -26,6 +27,7 @@ export default function App() {
       <SmoothScroll />
       <CursorSparkle />
       <PerfGovernor />
+      <LeafReact />
       <ScrollProgress />
       <Header />
       <AnimatePresence mode="wait" onExitComplete={scrollToTop}>
