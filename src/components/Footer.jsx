@@ -11,7 +11,7 @@ const SEGS = [
   [[900, 22], [1000, 6], [1100, 6], [1200, 22]],
 ];
 const bez = (P, t) => { const u = 1 - t; return [0, 1].map((k) => u * u * u * P[0][k] + 3 * u * u * t * P[1][k] + 3 * u * t * t * P[2][k] + t * t * t * P[3][k]); };
-const LEAF_SIZE = { olive: 52, gold: 52, pair: 46 };
+const LEAF_SIZE = { olive: 74, gold: 74, pair: 66 };
 const KINDS = ['gold', 'olive', 'pair', 'olive', 'gold'];
 const VINE = Array.from({ length: 18 }, (_, i) => {
   const pos = (i + 0.5) / 18 * SEGS.length;
@@ -31,13 +31,13 @@ const VINE = Array.from({ length: 18 }, (_, i) => {
 /** A vine that grows along the top of the footer: the line draws itself, then leaves unfurl from points on it. */
 function Vine() {
   return (
-    <svg className="footer__vine" viewBox="0 0 1200 110" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
-      <g transform="translate(0 36)">
+    <svg className="footer__vine" viewBox="0 0 1200 150" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+      <g transform="translate(0 54)">
         <motion.path d="M0 22 C100 6 180 38 300 22 S500 6 600 22 S800 38 900 22 S1100 6 1200 22" fill="none" stroke="var(--sun)" strokeWidth="2" strokeLinecap="round" initial={{ pathLength: 0 }} whileInView={{ pathLength: 1 }} viewport={{ once: true, margin: '-40px' }} transition={{ duration: 2.4, ease: [0.22, 1, 0.36, 1] }} />
         {VINE.map((l) => (
           <g key={l.i} transform={`translate(${l.x.toFixed(1)} ${l.y.toFixed(1)}) rotate(${l.rot.toFixed(1)})`}>
             <motion.g style={{ transformBox: 'view-box', transformOrigin: '0px 0px' }} initial={{ scale: 0 }} whileInView={{ scale: 1 }} viewport={{ once: true, margin: '-40px' }} transition={{ type: 'spring', stiffness: 120, damping: 12, delay: 0.4 + l.i * 0.12 }}>
-              <image href={`/decor/leaf-${l.kind}.png?v=10`} x={-l.size / 2} y={-l.size + 4} width={l.size} height={l.size} preserveAspectRatio="xMidYMax meet" />
+              <image href={`/decor/leaf-${l.kind}.png?v=11`} x={-l.size / 2} y={-l.size + 4} width={l.size} height={l.size} preserveAspectRatio="xMidYMax meet" />
             </motion.g>
           </g>
         ))}
