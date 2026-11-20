@@ -31,8 +31,8 @@ const VINE = Array.from({ length: 18 }, (_, i) => {
 /** A vine that grows along the top of the footer: the line draws itself, then leaves unfurl from points on it. */
 function Vine() {
   return (
-    <svg className="footer__vine" viewBox="0 0 1200 150" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
-      <g transform="translate(0 54)">
+    <svg className="footer__vine" viewBox="0 0 1200 190" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+      <g transform="translate(0 82)">
         <motion.path d="M0 22 C100 6 180 38 300 22 S500 6 600 22 S800 38 900 22 S1100 6 1200 22" fill="none" stroke="var(--sun)" strokeWidth="2" strokeLinecap="round" initial={{ pathLength: 0 }} whileInView={{ pathLength: 1 }} viewport={{ once: true, margin: '-40px' }} transition={{ duration: 2.4, ease: [0.22, 1, 0.36, 1] }} />
         {VINE.map((l) => (
           <g key={l.i} transform={`translate(${l.x.toFixed(1)} ${l.y.toFixed(1)}) rotate(${l.rot.toFixed(1)})`}>
